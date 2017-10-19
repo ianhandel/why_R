@@ -75,7 +75,7 @@ dat <- readxl::read_excel("../data/DragonSurvey.xlsx", sheet = "Very Raw Data") 
   arrange(id, dragon_age)
 
 
-DT::datatable(dat, style = "bootstrap")
+skimr::skim(dat)
 ```
 
 # Check for outlying observations
