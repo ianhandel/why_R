@@ -1,0 +1,148 @@
+---
+title: "Import tidy and explore dragon data"
+author: "Ian Handel"
+date: "19/10/2017"
+output: 
+  html_document: 
+    code_folding: hide
+    highlight: espresso
+    theme: cerulean
+    toc: yes
+---
+
+```{r, echo = FALSE, include = FALSE}
+library(tidyverse)
+library(knitr)
+library(forcats)
+library(stringr)
+library(digest)
+```
+
+# Import and tidy
+
+```{r Import}
+
+dat <- readxl::read_excel("../data/DragonSurvey.xlsx", sheet = "Very Raw Data") %>%
+  
+  data.table::setnames(str_to_lower(names(.))) %>% 
+  
+  dplyr::filter(!is.na(dragon)) %>%
+  
+  mutate(id = paste0("D", str_pad(1:n(), width = 3, pad = "0"))) %>% 
+  
+  dplyr::rename(home_range = `home range`,
+                dragon_age = `dragon age`,
+                n_princesses_captured = `n princess captured`,
+                question = `answer to question 'what do you do with princesses?\"`,
+                gold_affinity_score = `gold affinity score`,
+                colour_markings = `colour and markings`) %>% 
+  
+  fill(interviewer) %>% 
+  
+  separate(colour_markings, c("colour", "marking")) %>% 
+  
+  mutate(gender = case_when(gender == "F" ~ "female",
+                            gender == "M" ~ "male",
+                            gender == "Unknown" ~ NA_character_,
+                            TRUE ~ gender),
+         gender = factor(gender),
+         
+         wingspan_feet = case_when(grepl("yard", wingspan) ~ parse_number(wingspan) * 3,
+                              grepl("inches", wingspan) ~ parse_number(wingspan) / 12,
+                              TRUE ~ parse_number(wingspan)),
+         wingspan_feet = round(wingspan_feet),
+         
+         home_range = str_to_lower(home_range),
+         home_range = ordered(home_range, levels = c("small", "medium", "large")),
+         
+         gold_affinity_score = str_to_lower(gold_affinity_score),
+         gold_affinity_score = ordered(gold_affinity_score,
+                                       levels = c("none", "very low", "low",
+                                                  "neither low or high",
+                                                  "high", "very high")),
+         
+         n_princesses_captured = parse_number(n_princesses_captured, na = "*"),
+         
+         question = str_to_lower(question),
+         question_coded = case_when(grepl("(eat|roast)", question) ~ "eat",
+                                    grepl("(ransom|sell|pay)", question) ~ "ransom",
+                                    grepl("rescue",question) ~ "rescue",
+                                    TRUE ~ "other"),
+         question_coded = fct_relevel(question_coded, "other", after = 3)) %>% 
+  
+  select(id, everything(), -dragon, -wingspan) %>% 
+  
+  arrange(id, dragon_age)
+
+
+DT::datatable(dat, style = "bootstrap")
+```
+
+# Check for outlying observations
+
+```{r look at numerical variables and clean}
+
+ggplot(dat, aes(wingspan_feet)) +
+  geom_histogram()
+
+dat <- dat %>%
+  mutate(wingspan_feet = case_when(wingspan_feet > 300 ~ NA_real_,
+                                 TRUE ~ wingspan_feet))
+
+ggplot(dat, aes(dragon_age)) +
+  geom_histogram()
+
+ggplot(dat, aes(n_princesses_captured)) +
+  geom_histogram()
+```
+
+# Exclude non-consentors
+
+```{r exclude non-consentors}
+
+non_consentors = c("D004", "D009") # This could be from a file
+
+dat <- dat %>%
+  dplyr::filter(!id %in% non_consentors)
+
+```
+
+# Explore data
+
+Visualise relationships between dragon age, wingspan, home range, gender, princesses captured, gold affinity socre and princess outcomes.
+
+```{r explore}
+
+gg <- ggplot(dat, aes(dragon_age, wingspan_feet)) +
+  geom_point()
+
+print(gg)
+
+gg <- gg +
+  facet_wrap(~ gender)
+
+print(gg)
+
+gg <- gg +
+  facet_wrap(~ home_range)
+
+print(gg)
+
+gg <- ggplot(dat, aes(dragon_age, n_princesses_captured)) +
+  geom_point()
+
+print(gg)
+
+gg <- gg +
+  facet_wrap(~ gender)
+
+print(gg)
+
+gg <- gg +
+  facet_wrap(~ home_range)
+
+print(gg)
+```
+
+
+
