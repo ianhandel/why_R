@@ -2,13 +2,9 @@
 title: "Import tidy and explore dragon data"
 author: "Ian Handel"
 date: "19/10/2017"
-output: 
-  html_document:
-    keep_md: TRUE 
-    code_folding: hide
-    highlight: espresso
-    theme: cerulean
-    toc: yes
+output:
+  github_document
+
 ---
 
 ```{r, echo = FALSE, include = FALSE}
