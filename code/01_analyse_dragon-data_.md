@@ -101,13 +101,9 @@ skimr::skim(dat)
 
 ```r
 gg <- ggplot(dat, aes(wingspan_feet)) +
-  geom_histogram()
+  geom_histogram(binwidth = 10)
 
 print(gg)
-```
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 ![](01_analyse_dragon-data__files/figure-html/numerical_look_and_clean-1.png)<!-- -->
@@ -116,35 +112,7 @@ print(gg)
 dat <- dat %>%
   mutate(wingspan_feet = case_when(wingspan_feet > 300 ~ NA_real_,
                                  TRUE ~ wingspan_feet))
-
-gg <- ggplot(dat, aes(dragon_age)) +
-  geom_histogram()
-
-print(gg)
 ```
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-![](01_analyse_dragon-data__files/figure-html/numerical_look_and_clean-2.png)<!-- -->
-
-```r
-gg <- ggplot(dat, aes(n_princesses_captured)) +
-  geom_histogram()
-
-print(gg)
-```
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-```
-## Warning: Removed 2 rows containing non-finite values (stat_bin).
-```
-
-![](01_analyse_dragon-data__files/figure-html/numerical_look_and_clean-3.png)<!-- -->
 
 # Exclude non-consentors
 
@@ -163,9 +131,19 @@ Visualise relationships between dragon age, wingspan, home range, gender, prince
 
 ```r
 gg <- ggplot(dat, aes(dragon_age, wingspan_feet)) +
-  geom_point()
+  geom_smooth(method = "lm", se = FALSE, colour = "black", lwd = 0.2) +
+  geom_point() +
+  facet_grid(gender ~ home_range) +
+  labs(x = "Age (years)",
+       y = "Wingspan (feet)",
+       title = "Dragon wingspan vs age",
+       subtitle= "by gender and home range")
 
-print(gg)
+gg
+```
+
+```
+## Warning: Removed 2 rows containing non-finite values (stat_smooth).
 ```
 
 ```
@@ -173,71 +151,6 @@ print(gg)
 ```
 
 ![](01_analyse_dragon-data__files/figure-html/explore-1.png)<!-- -->
-
-```r
-gg <- gg +
-  facet_wrap(~ gender)
-
-print(gg)
-```
-
-```
-## Warning: Removed 2 rows containing missing values (geom_point).
-```
-
-![](01_analyse_dragon-data__files/figure-html/explore-2.png)<!-- -->
-
-```r
-gg <- gg +
-  facet_wrap(~ home_range)
-
-print(gg)
-```
-
-```
-## Warning: Removed 2 rows containing missing values (geom_point).
-```
-
-![](01_analyse_dragon-data__files/figure-html/explore-3.png)<!-- -->
-
-```r
-gg <- ggplot(dat, aes(dragon_age, n_princesses_captured)) +
-  geom_point()
-
-print(gg)
-```
-
-```
-## Warning: Removed 2 rows containing missing values (geom_point).
-```
-
-![](01_analyse_dragon-data__files/figure-html/explore-4.png)<!-- -->
-
-```r
-gg <- gg +
-  facet_wrap(~ gender)
-
-print(gg)
-```
-
-```
-## Warning: Removed 2 rows containing missing values (geom_point).
-```
-
-![](01_analyse_dragon-data__files/figure-html/explore-5.png)<!-- -->
-
-```r
-gg <- gg +
-  facet_wrap(~ home_range)
-
-print(gg)
-```
-
-```
-## Warning: Removed 2 rows containing missing values (geom_point).
-```
-
-![](01_analyse_dragon-data__files/figure-html/explore-6.png)<!-- -->
 
 
 

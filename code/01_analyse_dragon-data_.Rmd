@@ -84,23 +84,13 @@ skimr::skim(dat)
 ```{r numerical_look_and_clean}
 
 gg <- ggplot(dat, aes(wingspan_feet)) +
-  geom_histogram()
+  geom_histogram(binwidth = 10)
 
 print(gg)
 
 dat <- dat %>%
   mutate(wingspan_feet = case_when(wingspan_feet > 300 ~ NA_real_,
                                  TRUE ~ wingspan_feet))
-
-gg <- ggplot(dat, aes(dragon_age)) +
-  geom_histogram()
-
-print(gg)
-
-gg <- ggplot(dat, aes(n_princesses_captured)) +
-  geom_histogram()
-
-print(gg)
 ```
 
 # Exclude non-consentors
@@ -121,34 +111,16 @@ Visualise relationships between dragon age, wingspan, home range, gender, prince
 ```{r explore}
 
 gg <- ggplot(dat, aes(dragon_age, wingspan_feet)) +
-  geom_point()
+  geom_smooth(method = "lm", se = FALSE, colour = "black", lwd = 0.2) +
+  geom_point() +
+  facet_grid(gender ~ home_range) +
+  labs(x = "Age (years)",
+       y = "Wingspan (feet)",
+       title = "Dragon wingspan vs age",
+       subtitle= "by gender and home range")
 
-print(gg)
+gg
 
-gg <- gg +
-  facet_wrap(~ gender)
-
-print(gg)
-
-gg <- gg +
-  facet_wrap(~ home_range)
-
-print(gg)
-
-gg <- ggplot(dat, aes(dragon_age, n_princesses_captured)) +
-  geom_point()
-
-print(gg)
-
-gg <- gg +
-  facet_wrap(~ gender)
-
-print(gg)
-
-gg <- gg +
-  facet_wrap(~ home_range)
-
-print(gg)
 ```
 
 
