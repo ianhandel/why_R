@@ -110,7 +110,7 @@ print(gg)
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](01_analyse_dragon-data__files/figure-html/look at numerical variables and clean-1.png)<!-- -->
+![](01_analyse_dragon-data__files/figure-html/numerical_look_and_clean-1.png)<!-- -->
 
 ```r
 dat <- dat %>%
@@ -127,7 +127,7 @@ print(gg)
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](01_analyse_dragon-data__files/figure-html/look at numerical variables and clean-2.png)<!-- -->
+![](01_analyse_dragon-data__files/figure-html/numerical_look_and_clean-2.png)<!-- -->
 
 ```r
 gg <- ggplot(dat, aes(n_princesses_captured)) +
@@ -144,7 +144,7 @@ print(gg)
 ## Warning: Removed 2 rows containing non-finite values (stat_bin).
 ```
 
-![](01_analyse_dragon-data__files/figure-html/look at numerical variables and clean-3.png)<!-- -->
+![](01_analyse_dragon-data__files/figure-html/numerical_look_and_clean-3.png)<!-- -->
 
 # Exclude non-consentors
 

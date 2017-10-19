@@ -81,7 +81,7 @@ skimr::skim(dat)
 
 # Check for outlying observations
 
-```{r look at numerical variables and clean}
+```{r numerical_look_and_clean}
 
 gg <- ggplot(dat, aes(wingspan_feet)) +
   geom_histogram()
@@ -105,7 +105,7 @@ print(gg)
 
 # Exclude non-consentors
 
-```{r exclude non-consentors}
+```{r exclude_non_consentors}
 
 non_consentors = c("D004", "D009") # This could be from a file
 
