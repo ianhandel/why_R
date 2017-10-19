@@ -83,18 +83,24 @@ skimr::skim(dat)
 
 ```{r look at numerical variables and clean}
 
-ggplot(dat, aes(wingspan_feet)) +
+gg <- ggplot(dat, aes(wingspan_feet)) +
   geom_histogram()
+
+print(gg)
 
 dat <- dat %>%
   mutate(wingspan_feet = case_when(wingspan_feet > 300 ~ NA_real_,
                                  TRUE ~ wingspan_feet))
 
-ggplot(dat, aes(dragon_age)) +
+gg <- ggplot(dat, aes(dragon_age)) +
   geom_histogram()
 
-ggplot(dat, aes(n_princesses_captured)) +
+print(gg)
+
+gg <- ggplot(dat, aes(n_princesses_captured)) +
   geom_histogram()
+
+print(gg)
 ```
 
 # Exclude non-consentors

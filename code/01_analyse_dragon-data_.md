@@ -100,8 +100,10 @@ skimr::skim(dat)
 
 
 ```r
-ggplot(dat, aes(wingspan_feet)) +
+gg <- ggplot(dat, aes(wingspan_feet)) +
   geom_histogram()
+
+print(gg)
 ```
 
 ```
@@ -115,8 +117,10 @@ dat <- dat %>%
   mutate(wingspan_feet = case_when(wingspan_feet > 300 ~ NA_real_,
                                  TRUE ~ wingspan_feet))
 
-ggplot(dat, aes(dragon_age)) +
+gg <- ggplot(dat, aes(dragon_age)) +
   geom_histogram()
+
+print(gg)
 ```
 
 ```
@@ -126,8 +130,10 @@ ggplot(dat, aes(dragon_age)) +
 ![](01_analyse_dragon-data__files/figure-html/look at numerical variables and clean-2.png)<!-- -->
 
 ```r
-ggplot(dat, aes(n_princesses_captured)) +
+gg <- ggplot(dat, aes(n_princesses_captured)) +
   geom_histogram()
+
+print(gg)
 ```
 
 ```
