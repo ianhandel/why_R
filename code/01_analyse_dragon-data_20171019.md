@@ -106,7 +106,7 @@ gg <- ggplot(dat, aes(wingspan_feet)) +
 print(gg)
 ```
 
-![](01_analyse_dragon-data__files/figure-html/numerical_look_and_clean-1.png)<!-- -->
+![](01_analyse_dragon-data_20171019_files/figure-html/numerical_look_and_clean-1.png)<!-- -->
 
 ```r
 dat <- dat %>%
@@ -150,7 +150,7 @@ gg
 ## Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
-![](01_analyse_dragon-data__files/figure-html/explore-1.png)<!-- -->
+![](01_analyse_dragon-data_20171019_files/figure-html/explore-1.png)<!-- -->
 
 
 
