@@ -8,15 +8,22 @@ library(tidyverse)
 library(stringr)
 library(forcats)
 library(knitr)
+library(kableExtra)
 
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, comment = "")
 ```
 
 # Import and tidy data
 
 ```{r}
-dat <- readxl::read_excel("../data/ians-drug-trial_biochemistry-results_20171020.xls", sheet = 1, na = "*") %>%
-  kable() %>% 
+dat <- readxl::read_excel("../data/ians-drug-trial_biochemistry-results_20171020.xls", sheet = 1)
+```
+  
+  
+```{r, results='asis', echo=FALSE}
+dat %>% 
+  modify_if(.p = is_character, ~ replace(.x, is.na(.x), "")) %>%
+  kable(striped = TRUE, format = "markdown") %>% 
   print()
 
 ```
