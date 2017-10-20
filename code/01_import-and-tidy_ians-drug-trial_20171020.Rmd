@@ -1,0 +1,23 @@
+---
+title: "Ians drug trial analysis"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(stringr)
+library(forcats)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Import and tidy data
+
+```{r}
+dat <- readxl::read_excel("../data/ians-drug-trial_biochemistry-results_20171020.xls", sheet = 1) %>% 
+  
+  skimr::skim() %>% 
+  print()
+
+```
+
