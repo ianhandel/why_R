@@ -8,7 +8,7 @@ output: github_document
 # Import and tidy data
 
 Should be...
-9a7c149c94f1ec61238439e01174fd68
+425ec869e2a885d2da60d6bb16902555
 
 
 ```r
@@ -18,7 +18,7 @@ tools::md5sum(FILE)
 
 ```
 ../data/ians-drug-trial_biochemistry-results_20171020.xls 
-                       "9a7c149c94f1ec61238439e01174fd68" 
+                       "425ec869e2a885d2da60d6bb16902555" 
 ```
 
 ```r
