@@ -24,12 +24,21 @@ dat <- tibble(subject = 1:N,
 
   
   
-ggplot(dat, aes(x = week, y = value, group = paste(subject, rep), colour = treatment)) +
-  geom_line() +
-  facet_grid(rep ~ sex)
+# ggplot(dat, aes(x = week, y = value, group = paste(subject, rep), colour = treatment)) +
+#   geom_line() +
+#   facet_grid(rep ~ sex)
 
 dat <- dat %>%
+  dplyr::select(- row) %>% 
   mutate(week = paste0("week ", week)) %>% 
   spread(week, value, ) %>% 
+  group_by(subject) %>% 
+  mutate(sex = case_when(rep == 1 ~ sex,
+                             TRUE ~ "")) %>% 
+  ungroup() %>% 
+  mutate(age = case_when(sex == "" ~ "",
+                         TRUE ~ age),
+         treatment = case_when(sex == "" ~ "",
+                               TRUE ~ treatment)) %>% 
 
-write_csv("ians-drug-trial_biochemistry-results_20171020.xlsx")
+write_csv("data/ians-drug-trial_biochemistry-results_20171020.csv")
