@@ -5,34 +5,48 @@ Import and tidy data
 ====================
 
 ``` r
-dat <- readxl::read_excel("../data/ians-drug-trial_biochemistry-results_20171020.xls", sheet = 1) %>% 
-  
-  skimr::skim() %>% 
+dat <- readxl::read_excel("../data/ians-drug-trial_biochemistry-results_20171020.xls", sheet = 1, na = "*") %>%
+  kable() %>% 
   print()
 ```
 
-    ## Skim summary statistics
-    ##  n obs: 36 
-    ##  n variables: 9 
     ## 
-    ## Variable type: character 
-    ##         var missing complete  n min max empty n_unique
-    ## 1       age      24       12 36   1   8     0        9
-    ## 2       sex      24       12 36   2  16     0        5
-    ## 3 treatment      24       12 36   1   1     0        2
     ## 
-    ## Variable type: numeric 
-    ##       var missing complete  n  mean     sd  min  p25 median  p75 max
-    ## 1     rep       0       36 36  2      0.83 1    1      2    3      3
-    ## 2 subject       0       36 36  6.5    3.5  1    3.75   6.5  9.25  12
-    ## 3  week 1       0       36 36 22.38  99.74 0.34 4.07   5.78 7.88 604
-    ## 4  week 2       0       36 36 27.8  128.29 0.4  5.24   6.89 8.54 776
-    ## 5  week 3       0       36 36 26.56 119.42 1.85 4.27   6.77 9.06 723
-    ## 6  week 4       0       36 36 38.57 137.11 0.93 6.05   7.49 9.35 737
-    ##       hist
-    ## 1 ▇▁▁▇▁▁▁▇
-    ## 2 ▇▃▇▃▃▇▃▇
-    ## 3 ▇▁▁▁▁▁▁▁
-    ## 4 ▇▁▁▁▁▁▁▁
-    ## 5 ▇▁▁▁▁▁▁▁
-    ## 6 ▇▁▁▁▁▁▁▁
+    ##  subject  sex                age        treatment    rep   week 1   week 2   week 3   week 4
+    ## --------  -----------------  ---------  ----------  ----  -------  -------  -------  -------
+    ##        1  fn                 6 months   A              1     0.34     3.49     2.15     4.85
+    ##        1  NA                 NA         NA             2     3.97     6.78     4.27     4.52
+    ##        1  NA                 NA         NA             3     4.05     5.97     5.56     7.53
+    ##        2  mn                 12         B              1     6.56     7.01     7.07     6.30
+    ##        2  NA                 NA         NA             2     6.97     6.03     6.24     6.95
+    ##        2  NA                 NA         NA             3     9.77     5.85     7.71    10.80
+    ##        3  female nneutered   11         A              1     3.04     7.09     3.23     4.13
+    ##        3  NA                 NA         NA             2     1.14     5.04     7.23   408.00
+    ##        3  NA                 NA         NA             3     7.19     5.31     2.08     8.59
+    ##        4  mn                 9          B              1     7.86     7.44     9.03   737.00
+    ##        4  NA                 NA         NA             2     5.78     9.00     8.77     9.91
+    ##        4  NA                 NA         NA             3     8.10     9.88    12.43     9.95
+    ##        5  mn                 7          A              1     1.72     8.68     4.21     0.93
+    ##        5  NA                 NA         NA             2     5.49     8.39     3.87     3.68
+    ##        5  NA                 NA         NA             3     4.20     7.51     7.36     6.58
+    ##        6  male entire        5          B              1     4.89     7.46     9.69     8.14
+    ##        6  NA                 NA         NA             2   604.00     8.91     6.31     9.63
+    ##        6  NA                 NA         NA             3     8.28     9.63     8.24     8.01
+    ##        7  mn                 3          A              1     7.94     2.79     1.85     5.84
+    ##        7  NA                 NA         NA             2     2.71     1.99     7.85     3.77
+    ##        7  NA                 NA         NA             3     7.29     4.91     7.48     6.12
+    ##        8  fn                 7          B              1     9.07     4.72    10.28     6.62
+    ##        8  NA                 NA         NA             2     6.53     8.49     9.64     8.59
+    ##        8  NA                 NA         NA             3     4.27    10.17    10.43     7.82
+    ##        9  male entire        3          A              1     5.95     6.25     6.13     8.07
+    ##        9  NA                 NA         NA             2     5.31     0.40     5.29     4.78
+    ##        9  NA                 NA         NA             3     4.58     6.61     6.39     7.04
+    ##       10  mn                 10         B              1    11.34     5.72     9.87     9.25
+    ##       10  NA                 NA         NA             2     7.01    10.82    11.03    10.00
+    ##       10  NA                 NA         NA             3    10.97     7.25     9.17     7.44
+    ##       11  fn                 6          A              1     4.07     1.84     3.41     4.67
+    ##       11  NA                 NA         NA             2     3.72     0.48     4.88     6.39
+    ##       11  NA                 NA         NA             3     2.30     7.09     3.37     6.24
+    ##       12  MN                 5          B              1     5.19     6.52   723.00    10.86
+    ##       12  NA                 NA         NA             2     5.77   776.00     4.26     9.17
+    ##       12  NA                 NA         NA             3     8.27     9.38     6.47    10.51

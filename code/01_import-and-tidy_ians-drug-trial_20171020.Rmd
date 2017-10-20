@@ -7,6 +7,7 @@ output: github_document
 library(tidyverse)
 library(stringr)
 library(forcats)
+library(knitr)
 
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -14,9 +15,8 @@ knitr::opts_chunk$set(echo = TRUE)
 # Import and tidy data
 
 ```{r}
-dat <- readxl::read_excel("../data/ians-drug-trial_biochemistry-results_20171020.xls", sheet = 1) %>% 
-  
-  skimr::skim() %>% 
+dat <- readxl::read_excel("../data/ians-drug-trial_biochemistry-results_20171020.xls", sheet = 1, na = "*") %>%
+  kable() %>% 
   print()
 
 ```
