@@ -16,8 +16,13 @@ knitr::opts_chunk$set(echo = TRUE, comment = "")
 
 # Import and tidy data
 
+Should be...
+9a7c149c94f1ec61238439e01174fd68
+
 ```{r}
-dat <- readxl::read_excel("../data/ians-drug-trial_biochemistry-results_20171020.xls", sheet = 1)
+FILE <- "../data/ians-drug-trial_biochemistry-results_20171020.xls"
+tools::md5sum(FILE)
+dat <- readxl::read_excel(FILE, sheet = 1)
 ```
   
   
