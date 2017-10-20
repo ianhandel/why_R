@@ -5,9 +5,9 @@ library(tidyverse)
 N = 12
 n_weeks = 4
 n_reps = 3
-n_silly = 3
+n_silly = 5
 
-set.seed(1)
+set.seed(11)
 
 dat <- tibble(subject = 1:N,
               sex = sample(c("mn", "fn", "MN", "female nneutered", "male neutered", "male entire"), N, replace = TRUE),
