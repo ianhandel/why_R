@@ -1,10 +1,10 @@
 ---
 title: "Ians drug trial analysis"
-output: 
-  html_document: 
+output:
+  revealjs::revealjs_presentation:
+    theme: night
     highlight: espresso
-    theme: spacelab
-    toc: yes
+    center: true
 ---
 
 ```{r setup, include=FALSE}
@@ -24,7 +24,7 @@ show_df <- function(df){
 }
 ```
 
-# Import data and checksum
+## Import data and checksum
 
 Should be...
 425ec869e2a885d2da60d6bb16902555
@@ -39,7 +39,7 @@ dat <- readxl::read_excel(FILE, sheet = 1)
 ```{r, results='asis', echo=FALSE}
 dat %>% show_df()
 ```
-# Fill down the missing columns
+## Fill down the missing columns
 
 ```{r}
 dat <- dat %>% 
@@ -48,7 +48,7 @@ dat <- dat %>%
 ```{r, results='asis', echo=FALSE}
 dat %>% show_df()
 ```
-# Make the subject ID nice
+## Make the subject ID nice
 
 ```{r}
 dat <- dat %>% 
@@ -58,7 +58,7 @@ dat <- dat %>%
 ```{r, results='asis', echo=FALSE}
 dat %>% show_df()
 ```
-# Clean the sex/status column
+## Clean the sex/status column
 
 ```{r}
 kable(dat %>% group_by(sex) %>% tally())
@@ -74,7 +74,7 @@ dat <- dat %>%
 dat %>% show_df()
 ```
 
-# Separate sex/status into 2 columns
+## Separate sex/status into 2 columns
 
 ```{r}
 dat <- dat %>% 
@@ -85,7 +85,7 @@ dat <- dat %>%
 dat %>% show_df()
 ```
 
-# Make ages in months into years
+## Make ages in months into years
 
 ```{r}
 dat <- dat %>%
@@ -96,7 +96,7 @@ dat <- dat %>%
 ```{r, results='asis', echo=FALSE}
 dat %>% show_df()
 ```
-# Gather results and create week column
+## Gather results and create week column
 
 ```{r}
 dat <- dat %>%
@@ -108,18 +108,26 @@ dat <- dat %>%
 dat %>% show_df()
 ```
 
-# Check result values for obvious typos and correct
+## Check result values for obvious typos and correct
 
-```{r}
+```{r, fig.height=3}
 ggplot(dat, aes(x = value)) +
   geom_histogram(binwidth = 5) +
   coord_cartesian(ylim = c(0, 10)) + 
   labs(title = "Quick histogram of all values",
        subtitel = "NB: y axis truncated")
+```
 
+---
+
+```{r}
 dat %>% 
   dplyr::filter(value > 50) %>% 
   dplyr::select(subject, week, rep, value)
+```
+---
+
+```{r}
 
 dat <- dat %>%
   mutate(value = case_when(subject == "A006" &
@@ -145,9 +153,15 @@ dat <- dat %>%
                            TRUE ~ value))
   
 ```
+---
 
 ```{r, results='asis', echo=FALSE}
 dat %>% show_df()
 ```
 
-# Save tidied and cleaned data
+## Save tidied and cleaned data
+
+```{r}
+# write_csv(dat, "output/ians-drug-trial_biochemistry-result_tidy_20171020.csv")
+```
+
