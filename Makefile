@@ -1,4 +1,4 @@
-all: output/01_import-and-tidy_ians-drug-trial_20171020.html
+all: output/01_import-and-tidy_ians-drug-trial_20171020.html output/talk_reproducible-research_20171022.html
 
 clean:
 	rm -f output/*.*

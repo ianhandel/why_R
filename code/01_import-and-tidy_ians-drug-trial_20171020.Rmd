@@ -1,10 +1,13 @@
 ---
-title: "Ians drug trial analysis"
+title: Ian's Drug Trial Analysis
+author: Ian Handel
+date: 2017
 output:
   revealjs::revealjs_presentation:
     theme: night
     highlight: espresso
     center: true
+    transition: fade
 ---
 
 ```{r setup, include=FALSE}
@@ -12,8 +15,8 @@ library(tidyverse)
 library(stringr)
 library(forcats)
 library(knitr)
-library(kableExtra)
-library(visdat)
+library(kableExtra) # striping
+library(pander) # to highlight rows
 
 knitr::opts_chunk$set(echo = TRUE, comment = "")
 
@@ -62,7 +65,11 @@ dat %>% show_df()
 
 ```{r}
 kable(dat %>% group_by(sex) %>% tally())
+```
 
+---
+
+```{r}
 dat <- dat %>%
   mutate(sex = case_when(sex == "female nneutered" ~ "fn",
                          sex == "male entire" ~ "me",
@@ -78,7 +85,7 @@ dat %>% show_df()
 
 ```{r}
 dat <- dat %>% 
-  tidyr::separate(sex, c("sex", "neuter_status"), c(1))
+  tidyr::separate(sex, c("sex", "neuter_status"), 1)
 ```
 
 ```{r, results='asis', echo=FALSE}
@@ -123,7 +130,8 @@ ggplot(dat, aes(x = value)) +
 ```{r}
 dat %>% 
   dplyr::filter(value > 50) %>% 
-  dplyr::select(subject, week, rep, value)
+  dplyr::select(subject, week, rep, value) %>% 
+  kable()
 ```
 ---
 
