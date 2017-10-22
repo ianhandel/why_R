@@ -10,13 +10,12 @@ library(stringr)
 library(forcats)
 library(knitr)
 library(kableExtra) # striping
-library(pander) # to highlight rows
 
 knitr::opts_chunk$set(echo = TRUE, comment = "")
 
 show_df <- function(df){
   modify_if(df, .p = is_character, ~ replace(.x, is.na(.x), "")) %>%
-  kable(striped = TRUE, format = "markdown") %>% 
+  kable(format = "markdown") %>% 
   print()
 }
 ```
@@ -87,7 +86,7 @@ dat %>% show_df()
 
 ```{r}
 dat <- dat %>%
-  mutate(age = case_when(grepl("month", age) ~ parse_number(age) / 12,
+  mutate(age = case_when(str_detect(age, "month") ~ parse_number(age) / 12,
                          TRUE ~ parse_number(age)))
 ```
 
@@ -99,7 +98,7 @@ dat %>% show_df()
 ```{r}
 dat <- dat %>%
   tidyr::gather("week", "value", `week 1`:`week 4`) %>% 
-  mutate(week = str_extract(week, "\\d"))
+  mutate(week = parse_number(week))
 ```
 
 ```{r, results='asis', echo=FALSE}

@@ -2663,7 +2663,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <section id="make-ages-in-months-into-years" class="slide level2">
 <h2>Make ages in months into years</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">age =</span> <span class="kw">case_when</span>(<span class="kw">grepl</span>(<span class="st">&quot;month&quot;</span>, age) <span class="op">~</span><span class="st"> </span><span class="kw">parse_number</span>(age) <span class="op">/</span><span class="st"> </span><span class="dv">12</span>,
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">age =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(age, <span class="st">&quot;month&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="kw">parse_number</span>(age) <span class="op">/</span><span class="st"> </span><span class="dv">12</span>,
                          <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">parse_number</span>(age)))</code></pre></div>
 <table>
 <thead>
@@ -3120,7 +3120,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <h2>Gather results and create week column</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span>
 <span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(<span class="st">&quot;week&quot;</span>, <span class="st">&quot;value&quot;</span>, <span class="st">`</span><span class="dt">week 1</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">week 4</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">week =</span> <span class="kw">str_extract</span>(week, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>))</code></pre></div>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">week =</span> <span class="kw">parse_number</span>(week))</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -3130,7 +3130,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <th style="text-align: right;">age</th>
 <th style="text-align: left;">treatment</th>
 <th style="text-align: right;">rep</th>
-<th style="text-align: left;">week</th>
+<th style="text-align: right;">week</th>
 <th style="text-align: right;">value</th>
 </tr>
 </thead>
@@ -3142,7 +3142,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0.34</td>
 </tr>
 <tr class="even">
@@ -3152,7 +3152,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">3.97</td>
 </tr>
 <tr class="odd">
@@ -3162,7 +3162,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.05</td>
 </tr>
 <tr class="even">
@@ -3172,7 +3172,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">6.56</td>
 </tr>
 <tr class="odd">
@@ -3182,7 +3182,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">6.97</td>
 </tr>
 <tr class="even">
@@ -3192,7 +3192,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">9.77</td>
 </tr>
 <tr class="odd">
@@ -3202,7 +3202,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">3.04</td>
 </tr>
 <tr class="even">
@@ -3212,7 +3212,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">1.14</td>
 </tr>
 <tr class="odd">
@@ -3222,7 +3222,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.19</td>
 </tr>
 <tr class="even">
@@ -3232,7 +3232,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.86</td>
 </tr>
 <tr class="odd">
@@ -3242,7 +3242,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.78</td>
 </tr>
 <tr class="even">
@@ -3252,7 +3252,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">8.10</td>
 </tr>
 <tr class="odd">
@@ -3262,7 +3262,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">1.72</td>
 </tr>
 <tr class="even">
@@ -3272,7 +3272,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.49</td>
 </tr>
 <tr class="odd">
@@ -3282,7 +3282,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.20</td>
 </tr>
 <tr class="even">
@@ -3292,7 +3292,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.89</td>
 </tr>
 <tr class="odd">
@@ -3302,7 +3302,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">604.00</td>
 </tr>
 <tr class="even">
@@ -3312,7 +3312,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">8.28</td>
 </tr>
 <tr class="odd">
@@ -3322,7 +3322,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.94</td>
 </tr>
 <tr class="even">
@@ -3332,7 +3332,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">2.71</td>
 </tr>
 <tr class="odd">
@@ -3342,7 +3342,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.29</td>
 </tr>
 <tr class="even">
@@ -3352,7 +3352,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">9.07</td>
 </tr>
 <tr class="odd">
@@ -3362,7 +3362,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">6.53</td>
 </tr>
 <tr class="even">
@@ -3372,7 +3372,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.27</td>
 </tr>
 <tr class="odd">
@@ -3382,7 +3382,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.95</td>
 </tr>
 <tr class="even">
@@ -3392,7 +3392,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.31</td>
 </tr>
 <tr class="odd">
@@ -3402,7 +3402,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.58</td>
 </tr>
 <tr class="even">
@@ -3412,7 +3412,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">11.34</td>
 </tr>
 <tr class="odd">
@@ -3422,7 +3422,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.01</td>
 </tr>
 <tr class="even">
@@ -3432,7 +3432,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">10.97</td>
 </tr>
 <tr class="odd">
@@ -3442,7 +3442,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.07</td>
 </tr>
 <tr class="even">
@@ -3452,7 +3452,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">3.72</td>
 </tr>
 <tr class="odd">
@@ -3462,7 +3462,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">2.30</td>
 </tr>
 <tr class="even">
@@ -3472,7 +3472,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.19</td>
 </tr>
 <tr class="odd">
@@ -3482,7 +3482,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.77</td>
 </tr>
 <tr class="even">
@@ -3492,7 +3492,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">8.27</td>
 </tr>
 <tr class="odd">
@@ -3502,7 +3502,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">3.49</td>
 </tr>
 <tr class="even">
@@ -3512,7 +3512,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.78</td>
 </tr>
 <tr class="odd">
@@ -3522,7 +3522,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.97</td>
 </tr>
 <tr class="even">
@@ -3532,7 +3532,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.01</td>
 </tr>
 <tr class="odd">
@@ -3542,7 +3542,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.03</td>
 </tr>
 <tr class="even">
@@ -3552,7 +3552,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.85</td>
 </tr>
 <tr class="odd">
@@ -3562,7 +3562,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.09</td>
 </tr>
 <tr class="even">
@@ -3572,7 +3572,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.04</td>
 </tr>
 <tr class="odd">
@@ -3582,7 +3582,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.31</td>
 </tr>
 <tr class="even">
@@ -3592,7 +3592,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.44</td>
 </tr>
 <tr class="odd">
@@ -3602,7 +3602,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">9.00</td>
 </tr>
 <tr class="even">
@@ -3612,7 +3612,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">9.88</td>
 </tr>
 <tr class="odd">
@@ -3622,7 +3622,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">8.68</td>
 </tr>
 <tr class="even">
@@ -3632,7 +3632,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">8.39</td>
 </tr>
 <tr class="odd">
@@ -3642,7 +3642,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.51</td>
 </tr>
 <tr class="even">
@@ -3652,7 +3652,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.46</td>
 </tr>
 <tr class="odd">
@@ -3662,7 +3662,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">8.91</td>
 </tr>
 <tr class="even">
@@ -3672,7 +3672,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">9.63</td>
 </tr>
 <tr class="odd">
@@ -3682,7 +3682,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">2.79</td>
 </tr>
 <tr class="even">
@@ -3692,7 +3692,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">1.99</td>
 </tr>
 <tr class="odd">
@@ -3702,7 +3702,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">4.91</td>
 </tr>
 <tr class="even">
@@ -3712,7 +3712,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">4.72</td>
 </tr>
 <tr class="odd">
@@ -3722,7 +3722,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">8.49</td>
 </tr>
 <tr class="even">
@@ -3732,7 +3732,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">10.17</td>
 </tr>
 <tr class="odd">
@@ -3742,7 +3742,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.25</td>
 </tr>
 <tr class="even">
@@ -3752,7 +3752,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0.40</td>
 </tr>
 <tr class="odd">
@@ -3762,7 +3762,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.61</td>
 </tr>
 <tr class="even">
@@ -3772,7 +3772,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.72</td>
 </tr>
 <tr class="odd">
@@ -3782,7 +3782,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">10.82</td>
 </tr>
 <tr class="even">
@@ -3792,7 +3792,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.25</td>
 </tr>
 <tr class="odd">
@@ -3802,7 +3802,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">1.84</td>
 </tr>
 <tr class="even">
@@ -3812,7 +3812,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0.48</td>
 </tr>
 <tr class="odd">
@@ -3822,7 +3822,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.09</td>
 </tr>
 <tr class="even">
@@ -3832,7 +3832,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.52</td>
 </tr>
 <tr class="odd">
@@ -3842,7 +3842,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">776.00</td>
 </tr>
 <tr class="even">
@@ -3852,7 +3852,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">9.38</td>
 </tr>
 <tr class="odd">
@@ -3862,7 +3862,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">2.15</td>
 </tr>
 <tr class="even">
@@ -3872,7 +3872,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">4.27</td>
 </tr>
 <tr class="odd">
@@ -3882,7 +3882,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">5.56</td>
 </tr>
 <tr class="even">
@@ -3892,7 +3892,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.07</td>
 </tr>
 <tr class="odd">
@@ -3902,7 +3902,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.24</td>
 </tr>
 <tr class="even">
@@ -3912,7 +3912,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.71</td>
 </tr>
 <tr class="odd">
@@ -3922,7 +3922,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">3.23</td>
 </tr>
 <tr class="even">
@@ -3932,7 +3932,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.23</td>
 </tr>
 <tr class="odd">
@@ -3942,7 +3942,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">2.08</td>
 </tr>
 <tr class="even">
@@ -3952,7 +3952,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.03</td>
 </tr>
 <tr class="odd">
@@ -3962,7 +3962,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">8.77</td>
 </tr>
 <tr class="even">
@@ -3972,7 +3972,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">12.43</td>
 </tr>
 <tr class="odd">
@@ -3982,7 +3982,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">4.21</td>
 </tr>
 <tr class="even">
@@ -3992,7 +3992,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">3.87</td>
 </tr>
 <tr class="odd">
@@ -4002,7 +4002,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.36</td>
 </tr>
 <tr class="even">
@@ -4012,7 +4012,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.69</td>
 </tr>
 <tr class="odd">
@@ -4022,7 +4022,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.31</td>
 </tr>
 <tr class="even">
@@ -4032,7 +4032,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">8.24</td>
 </tr>
 <tr class="odd">
@@ -4042,7 +4042,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">1.85</td>
 </tr>
 <tr class="even">
@@ -4052,7 +4052,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.85</td>
 </tr>
 <tr class="odd">
@@ -4062,7 +4062,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.48</td>
 </tr>
 <tr class="even">
@@ -4072,7 +4072,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">10.28</td>
 </tr>
 <tr class="odd">
@@ -4082,7 +4082,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.64</td>
 </tr>
 <tr class="even">
@@ -4092,7 +4092,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">10.43</td>
 </tr>
 <tr class="odd">
@@ -4102,7 +4102,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.13</td>
 </tr>
 <tr class="even">
@@ -4112,7 +4112,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">5.29</td>
 </tr>
 <tr class="odd">
@@ -4122,7 +4122,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.39</td>
 </tr>
 <tr class="even">
@@ -4132,7 +4132,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.87</td>
 </tr>
 <tr class="odd">
@@ -4142,7 +4142,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">11.03</td>
 </tr>
 <tr class="even">
@@ -4152,7 +4152,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.17</td>
 </tr>
 <tr class="odd">
@@ -4162,7 +4162,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">3.41</td>
 </tr>
 <tr class="even">
@@ -4172,7 +4172,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">4.88</td>
 </tr>
 <tr class="odd">
@@ -4182,7 +4182,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">3.37</td>
 </tr>
 <tr class="even">
@@ -4192,7 +4192,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">723.00</td>
 </tr>
 <tr class="odd">
@@ -4202,7 +4202,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">4.26</td>
 </tr>
 <tr class="even">
@@ -4212,7 +4212,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.47</td>
 </tr>
 <tr class="odd">
@@ -4222,7 +4222,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.85</td>
 </tr>
 <tr class="even">
@@ -4232,7 +4232,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.52</td>
 </tr>
 <tr class="odd">
@@ -4242,7 +4242,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">7.53</td>
 </tr>
 <tr class="even">
@@ -4252,7 +4252,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.30</td>
 </tr>
 <tr class="odd">
@@ -4262,7 +4262,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.95</td>
 </tr>
 <tr class="even">
@@ -4272,7 +4272,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">10.80</td>
 </tr>
 <tr class="odd">
@@ -4282,7 +4282,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.13</td>
 </tr>
 <tr class="even">
@@ -4292,7 +4292,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">408.00</td>
 </tr>
 <tr class="odd">
@@ -4302,7 +4302,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.59</td>
 </tr>
 <tr class="even">
@@ -4312,7 +4312,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">737.00</td>
 </tr>
 <tr class="odd">
@@ -4322,7 +4322,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.91</td>
 </tr>
 <tr class="even">
@@ -4332,7 +4332,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.95</td>
 </tr>
 <tr class="odd">
@@ -4342,7 +4342,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0.93</td>
 </tr>
 <tr class="even">
@@ -4352,7 +4352,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">3.68</td>
 </tr>
 <tr class="odd">
@@ -4362,7 +4362,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.58</td>
 </tr>
 <tr class="even">
@@ -4372,7 +4372,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.14</td>
 </tr>
 <tr class="odd">
@@ -4382,7 +4382,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.63</td>
 </tr>
 <tr class="even">
@@ -4392,7 +4392,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.01</td>
 </tr>
 <tr class="odd">
@@ -4402,7 +4402,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">5.84</td>
 </tr>
 <tr class="even">
@@ -4412,7 +4412,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">3.77</td>
 </tr>
 <tr class="odd">
@@ -4422,7 +4422,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.12</td>
 </tr>
 <tr class="even">
@@ -4432,7 +4432,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.62</td>
 </tr>
 <tr class="odd">
@@ -4442,7 +4442,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.59</td>
 </tr>
 <tr class="even">
@@ -4452,7 +4452,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">7.82</td>
 </tr>
 <tr class="odd">
@@ -4462,7 +4462,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.07</td>
 </tr>
 <tr class="even">
@@ -4472,7 +4472,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.78</td>
 </tr>
 <tr class="odd">
@@ -4482,7 +4482,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">7.04</td>
 </tr>
 <tr class="even">
@@ -4492,7 +4492,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.25</td>
 </tr>
 <tr class="odd">
@@ -4502,7 +4502,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">10.00</td>
 </tr>
 <tr class="even">
@@ -4512,7 +4512,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">7.44</td>
 </tr>
 <tr class="odd">
@@ -4522,7 +4522,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.67</td>
 </tr>
 <tr class="even">
@@ -4532,7 +4532,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.39</td>
 </tr>
 <tr class="odd">
@@ -4542,7 +4542,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.24</td>
 </tr>
 <tr class="even">
@@ -4552,7 +4552,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">10.86</td>
 </tr>
 <tr class="odd">
@@ -4562,7 +4562,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.17</td>
 </tr>
 <tr class="even">
@@ -4572,7 +4572,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">10.51</td>
 </tr>
 </tbody>
@@ -4597,7 +4597,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <thead>
 <tr class="header">
 <th style="text-align: left;">subject</th>
-<th style="text-align: left;">week</th>
+<th style="text-align: right;">week</th>
 <th style="text-align: right;">rep</th>
 <th style="text-align: right;">value</th>
 </tr>
@@ -4605,31 +4605,31 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">A006</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">604</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">A012</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">776</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">A012</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">723</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">A003</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">408</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">A004</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">737</td>
 </tr>
@@ -4669,7 +4669,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <th style="text-align: right;">age</th>
 <th style="text-align: left;">treatment</th>
 <th style="text-align: right;">rep</th>
-<th style="text-align: left;">week</th>
+<th style="text-align: right;">week</th>
 <th style="text-align: right;">value</th>
 </tr>
 </thead>
@@ -4681,7 +4681,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0.34</td>
 </tr>
 <tr class="even">
@@ -4691,7 +4691,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">3.97</td>
 </tr>
 <tr class="odd">
@@ -4701,7 +4701,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.05</td>
 </tr>
 <tr class="even">
@@ -4711,7 +4711,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">6.56</td>
 </tr>
 <tr class="odd">
@@ -4721,7 +4721,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">6.97</td>
 </tr>
 <tr class="even">
@@ -4731,7 +4731,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">9.77</td>
 </tr>
 <tr class="odd">
@@ -4741,7 +4741,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">3.04</td>
 </tr>
 <tr class="even">
@@ -4751,7 +4751,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">1.14</td>
 </tr>
 <tr class="odd">
@@ -4761,7 +4761,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.19</td>
 </tr>
 <tr class="even">
@@ -4771,7 +4771,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.86</td>
 </tr>
 <tr class="odd">
@@ -4781,7 +4781,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.78</td>
 </tr>
 <tr class="even">
@@ -4791,7 +4791,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">8.10</td>
 </tr>
 <tr class="odd">
@@ -4801,7 +4801,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">1.72</td>
 </tr>
 <tr class="even">
@@ -4811,7 +4811,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.49</td>
 </tr>
 <tr class="odd">
@@ -4821,7 +4821,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.20</td>
 </tr>
 <tr class="even">
@@ -4831,7 +4831,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.89</td>
 </tr>
 <tr class="odd">
@@ -4841,7 +4841,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">6.04</td>
 </tr>
 <tr class="even">
@@ -4851,7 +4851,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">8.28</td>
 </tr>
 <tr class="odd">
@@ -4861,7 +4861,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.94</td>
 </tr>
 <tr class="even">
@@ -4871,7 +4871,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">2.71</td>
 </tr>
 <tr class="odd">
@@ -4881,7 +4881,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.29</td>
 </tr>
 <tr class="even">
@@ -4891,7 +4891,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">9.07</td>
 </tr>
 <tr class="odd">
@@ -4901,7 +4901,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">6.53</td>
 </tr>
 <tr class="even">
@@ -4911,7 +4911,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.27</td>
 </tr>
 <tr class="odd">
@@ -4921,7 +4921,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.95</td>
 </tr>
 <tr class="even">
@@ -4931,7 +4931,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.31</td>
 </tr>
 <tr class="odd">
@@ -4941,7 +4941,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.58</td>
 </tr>
 <tr class="even">
@@ -4951,7 +4951,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">11.34</td>
 </tr>
 <tr class="odd">
@@ -4961,7 +4961,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7.01</td>
 </tr>
 <tr class="even">
@@ -4971,7 +4971,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">10.97</td>
 </tr>
 <tr class="odd">
@@ -4981,7 +4981,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4.07</td>
 </tr>
 <tr class="even">
@@ -4991,7 +4991,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">3.72</td>
 </tr>
 <tr class="odd">
@@ -5001,7 +5001,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">2.30</td>
 </tr>
 <tr class="even">
@@ -5011,7 +5011,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.19</td>
 </tr>
 <tr class="odd">
@@ -5021,7 +5021,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">5.77</td>
 </tr>
 <tr class="even">
@@ -5031,7 +5031,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">8.27</td>
 </tr>
 <tr class="odd">
@@ -5041,7 +5041,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">3.49</td>
 </tr>
 <tr class="even">
@@ -5051,7 +5051,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.78</td>
 </tr>
 <tr class="odd">
@@ -5061,7 +5061,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.97</td>
 </tr>
 <tr class="even">
@@ -5071,7 +5071,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.01</td>
 </tr>
 <tr class="odd">
@@ -5081,7 +5081,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.03</td>
 </tr>
 <tr class="even">
@@ -5091,7 +5091,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.85</td>
 </tr>
 <tr class="odd">
@@ -5101,7 +5101,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.09</td>
 </tr>
 <tr class="even">
@@ -5111,7 +5111,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.04</td>
 </tr>
 <tr class="odd">
@@ -5121,7 +5121,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.31</td>
 </tr>
 <tr class="even">
@@ -5131,7 +5131,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.44</td>
 </tr>
 <tr class="odd">
@@ -5141,7 +5141,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">9.00</td>
 </tr>
 <tr class="even">
@@ -5151,7 +5151,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">9.88</td>
 </tr>
 <tr class="odd">
@@ -5161,7 +5161,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">8.68</td>
 </tr>
 <tr class="even">
@@ -5171,7 +5171,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">8.39</td>
 </tr>
 <tr class="odd">
@@ -5181,7 +5181,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.51</td>
 </tr>
 <tr class="even">
@@ -5191,7 +5191,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.46</td>
 </tr>
 <tr class="odd">
@@ -5201,7 +5201,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">8.91</td>
 </tr>
 <tr class="even">
@@ -5211,7 +5211,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">9.63</td>
 </tr>
 <tr class="odd">
@@ -5221,7 +5221,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">2.79</td>
 </tr>
 <tr class="even">
@@ -5231,7 +5231,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">1.99</td>
 </tr>
 <tr class="odd">
@@ -5241,7 +5241,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">4.91</td>
 </tr>
 <tr class="even">
@@ -5251,7 +5251,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">4.72</td>
 </tr>
 <tr class="odd">
@@ -5261,7 +5261,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">8.49</td>
 </tr>
 <tr class="even">
@@ -5271,7 +5271,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">10.17</td>
 </tr>
 <tr class="odd">
@@ -5281,7 +5281,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.25</td>
 </tr>
 <tr class="even">
@@ -5291,7 +5291,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0.40</td>
 </tr>
 <tr class="odd">
@@ -5301,7 +5301,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.61</td>
 </tr>
 <tr class="even">
@@ -5311,7 +5311,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">5.72</td>
 </tr>
 <tr class="odd">
@@ -5321,7 +5321,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">10.82</td>
 </tr>
 <tr class="even">
@@ -5331,7 +5331,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.25</td>
 </tr>
 <tr class="odd">
@@ -5341,7 +5341,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">1.84</td>
 </tr>
 <tr class="even">
@@ -5351,7 +5351,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0.48</td>
 </tr>
 <tr class="odd">
@@ -5361,7 +5361,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.09</td>
 </tr>
 <tr class="even">
@@ -5371,7 +5371,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">6.52</td>
 </tr>
 <tr class="odd">
@@ -5381,7 +5381,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">7.76</td>
 </tr>
 <tr class="even">
@@ -5391,7 +5391,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">2</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">9.38</td>
 </tr>
 <tr class="odd">
@@ -5401,7 +5401,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">2.15</td>
 </tr>
 <tr class="even">
@@ -5411,7 +5411,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">4.27</td>
 </tr>
 <tr class="odd">
@@ -5421,7 +5421,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">5.56</td>
 </tr>
 <tr class="even">
@@ -5431,7 +5431,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.07</td>
 </tr>
 <tr class="odd">
@@ -5441,7 +5441,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.24</td>
 </tr>
 <tr class="even">
@@ -5451,7 +5451,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.71</td>
 </tr>
 <tr class="odd">
@@ -5461,7 +5461,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">3.23</td>
 </tr>
 <tr class="even">
@@ -5471,7 +5471,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.23</td>
 </tr>
 <tr class="odd">
@@ -5481,7 +5481,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">2.08</td>
 </tr>
 <tr class="even">
@@ -5491,7 +5491,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.03</td>
 </tr>
 <tr class="odd">
@@ -5501,7 +5501,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">8.77</td>
 </tr>
 <tr class="even">
@@ -5511,7 +5511,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">12.43</td>
 </tr>
 <tr class="odd">
@@ -5521,7 +5521,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">4.21</td>
 </tr>
 <tr class="even">
@@ -5531,7 +5531,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">3.87</td>
 </tr>
 <tr class="odd">
@@ -5541,7 +5541,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.36</td>
 </tr>
 <tr class="even">
@@ -5551,7 +5551,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.69</td>
 </tr>
 <tr class="odd">
@@ -5561,7 +5561,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.31</td>
 </tr>
 <tr class="even">
@@ -5571,7 +5571,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">8.24</td>
 </tr>
 <tr class="odd">
@@ -5581,7 +5581,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">1.85</td>
 </tr>
 <tr class="even">
@@ -5591,7 +5591,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.85</td>
 </tr>
 <tr class="odd">
@@ -5601,7 +5601,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.48</td>
 </tr>
 <tr class="even">
@@ -5611,7 +5611,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">10.28</td>
 </tr>
 <tr class="odd">
@@ -5621,7 +5621,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.64</td>
 </tr>
 <tr class="even">
@@ -5631,7 +5631,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">10.43</td>
 </tr>
 <tr class="odd">
@@ -5641,7 +5641,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.13</td>
 </tr>
 <tr class="even">
@@ -5651,7 +5651,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">5.29</td>
 </tr>
 <tr class="odd">
@@ -5661,7 +5661,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.39</td>
 </tr>
 <tr class="even">
@@ -5671,7 +5671,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.87</td>
 </tr>
 <tr class="odd">
@@ -5681,7 +5681,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">11.03</td>
 </tr>
 <tr class="even">
@@ -5691,7 +5691,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">9.17</td>
 </tr>
 <tr class="odd">
@@ -5701,7 +5701,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">3.41</td>
 </tr>
 <tr class="even">
@@ -5711,7 +5711,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">4.88</td>
 </tr>
 <tr class="odd">
@@ -5721,7 +5721,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">3.37</td>
 </tr>
 <tr class="even">
@@ -5731,7 +5731,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">7.27</td>
 </tr>
 <tr class="odd">
@@ -5741,7 +5741,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">4.26</td>
 </tr>
 <tr class="even">
@@ -5751,7 +5751,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">6.47</td>
 </tr>
 <tr class="odd">
@@ -5761,7 +5761,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.85</td>
 </tr>
 <tr class="even">
@@ -5771,7 +5771,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.52</td>
 </tr>
 <tr class="odd">
@@ -5781,7 +5781,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">0.5</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">7.53</td>
 </tr>
 <tr class="even">
@@ -5791,7 +5791,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.30</td>
 </tr>
 <tr class="odd">
@@ -5801,7 +5801,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.95</td>
 </tr>
 <tr class="even">
@@ -5811,7 +5811,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">12.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">10.80</td>
 </tr>
 <tr class="odd">
@@ -5821,7 +5821,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.13</td>
 </tr>
 <tr class="even">
@@ -5831,7 +5831,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.08</td>
 </tr>
 <tr class="odd">
@@ -5841,7 +5841,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">11.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.59</td>
 </tr>
 <tr class="even">
@@ -5851,7 +5851,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">7.37</td>
 </tr>
 <tr class="odd">
@@ -5861,7 +5861,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.91</td>
 </tr>
 <tr class="even">
@@ -5871,7 +5871,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">9.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.95</td>
 </tr>
 <tr class="odd">
@@ -5881,7 +5881,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0.93</td>
 </tr>
 <tr class="even">
@@ -5891,7 +5891,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">3.68</td>
 </tr>
 <tr class="odd">
@@ -5901,7 +5901,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.58</td>
 </tr>
 <tr class="even">
@@ -5911,7 +5911,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.14</td>
 </tr>
 <tr class="odd">
@@ -5921,7 +5921,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.63</td>
 </tr>
 <tr class="even">
@@ -5931,7 +5931,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.01</td>
 </tr>
 <tr class="odd">
@@ -5941,7 +5941,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">5.84</td>
 </tr>
 <tr class="even">
@@ -5951,7 +5951,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">3.77</td>
 </tr>
 <tr class="odd">
@@ -5961,7 +5961,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.12</td>
 </tr>
 <tr class="even">
@@ -5971,7 +5971,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.62</td>
 </tr>
 <tr class="odd">
@@ -5981,7 +5981,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.59</td>
 </tr>
 <tr class="even">
@@ -5991,7 +5991,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">7.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">7.82</td>
 </tr>
 <tr class="odd">
@@ -6001,7 +6001,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">8.07</td>
 </tr>
 <tr class="even">
@@ -6011,7 +6011,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.78</td>
 </tr>
 <tr class="odd">
@@ -6021,7 +6021,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">3.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">7.04</td>
 </tr>
 <tr class="even">
@@ -6031,7 +6031,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.25</td>
 </tr>
 <tr class="odd">
@@ -6041,7 +6041,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">10.00</td>
 </tr>
 <tr class="even">
@@ -6051,7 +6051,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">10.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">7.44</td>
 </tr>
 <tr class="odd">
@@ -6061,7 +6061,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">4.67</td>
 </tr>
 <tr class="even">
@@ -6071,7 +6071,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.39</td>
 </tr>
 <tr class="odd">
@@ -6081,7 +6081,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">6.0</td>
 <td style="text-align: left;">A</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">6.24</td>
 </tr>
 <tr class="even">
@@ -6091,7 +6091,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">10.86</td>
 </tr>
 <tr class="odd">
@@ -6101,7 +6101,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">9.17</td>
 </tr>
 <tr class="even">
@@ -6111,7 +6111,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <td style="text-align: right;">5.0</td>
 <td style="text-align: left;">B</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">10.51</td>
 </tr>
 </tbody>
