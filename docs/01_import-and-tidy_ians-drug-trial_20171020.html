@@ -499,11 +499,10 @@ document.getElementsByTagName('head')[0].appendChild(style);
 
 <section id="import-data-and-checksum" class="slide level2">
 <h2>Import data and checksum</h2>
-<p>Should be… 425ec869e2a885d2da60d6bb16902555</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">FILE &lt;-<span class="st"> &quot;../data/ians-drug-trial_biochemistry-results_20171020.xlsx&quot;</span>
 tools<span class="op">::</span><span class="kw">md5sum</span>(FILE)</code></pre></div>
 <pre><code>../data/ians-drug-trial_biochemistry-results_20171020.xlsx 
-                        &quot;4e0edf1eb30c664fdf69a73ba661c87f&quot; </code></pre>
+                        &quot;587937813d7440a3af05e6651c167543&quot; </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(FILE, <span class="dt">sheet =</span> <span class="dv">1</span>)</code></pre></div>
 <table>
 <thead>

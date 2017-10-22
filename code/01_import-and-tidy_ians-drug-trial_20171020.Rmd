@@ -23,9 +23,6 @@ show_df <- function(df){
 
 ## Import data and checksum
 
-Should be...
-425ec869e2a885d2da60d6bb16902555
-
 ```{r}
 FILE <- "../data/ians-drug-trial_biochemistry-results_20171020.xlsx"
 tools::md5sum(FILE)
