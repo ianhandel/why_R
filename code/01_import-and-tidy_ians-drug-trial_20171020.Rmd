@@ -24,9 +24,9 @@ show_df <- function(df){
 ## Import data and checksum
 
 ```{r}
-FILE <- "../data/ians-drug-trial_biochemistry-results_20171020.xlsx"
-tools::md5sum(FILE)
-dat <- readxl::read_excel(FILE, sheet = 1)
+DATA_FILE_NAME <- "../data/ians-drug-trial_biochemistry-results_20171020.xlsx"
+tools::md5sum(DATA_FILE_NAME)
+dat <- readxl::read_excel(DATA_FILE_NAME, sheet = 1)
 ```
   
   
