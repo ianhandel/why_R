@@ -116,7 +116,7 @@ ggplot(dat, aes(x = value)) +
   geom_histogram(binwidth = 5) +
   coord_cartesian(ylim = c(0, 10)) + 
   labs(title = "Quick histogram of all values",
-       subtitel = "NB: y axis truncated")
+       subtitle = "NB: y axis truncated")
 ```
 
 ---
