@@ -4,6 +4,7 @@ author: Ian Handel
 date: 2017
 ---
 
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(stringr)
@@ -84,10 +85,11 @@ dat %>% show_df()
 
 ## Make ages in months into years
 
-```{r}
+```{r, size=0.1}
 dat <- dat %>%
-  mutate(age = case_when(str_detect(age, "month") ~ parse_number(age) / 12,
-                         TRUE ~ parse_number(age)))
+  mutate(age = case_when(
+                    str_detect(age, "month") ~ parse_number(age) / 12,
+                    TRUE ~ parse_number(age)))
 ```
 
 ```{r, results='asis', echo=FALSE}

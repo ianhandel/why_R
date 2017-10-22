@@ -2663,8 +2663,9 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</c
 <section id="make-ages-in-months-into-years" class="slide level2">
 <h2>Make ages in months into years</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">age =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(age, <span class="st">&quot;month&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="kw">parse_number</span>(age) <span class="op">/</span><span class="st"> </span><span class="dv">12</span>,
-                         <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">parse_number</span>(age)))</code></pre></div>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">age =</span> <span class="kw">case_when</span>(
+                    <span class="kw">str_detect</span>(age, <span class="st">&quot;month&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="kw">parse_number</span>(age) <span class="op">/</span><span class="st"> </span><span class="dv">12</span>,
+                    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span><span class="kw">parse_number</span>(age)))</code></pre></div>
 <table>
 <thead>
 <tr class="header">
