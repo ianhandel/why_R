@@ -4,7 +4,7 @@ clean:
 	rm -f output/*.*
 
 code/%.html: code/%.Rmd
-	Rscript -e 'knitr::knit("$<", "$@")'
-
+	Rscript -e 'rmarkdown::render(input = "$<", revealjs::revealjs_presentation(theme = "night", transition = "fade"))'
+	
 output/%.html: code/%.html
 	mv code/*.html output/
