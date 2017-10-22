@@ -1,6 +1,7 @@
 # make some data foe my R and Excel talk
 
 library(tidyverse)
+library(writexl)
 
 N = 12
 n_weeks = 4
@@ -41,4 +42,4 @@ dat <- dat %>%
          treatment = case_when(sex == "" ~ "",
                                TRUE ~ treatment)) %>% 
 
-write_csv("data/ians-drug-trial_biochemistry-results_20171020.csv")
+write_xlsx("data/ians-drug-trial_biochemistry-results_20171020.xlsx")

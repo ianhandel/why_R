@@ -2,12 +2,6 @@
 title: Ian's Drug Trial Analysis
 author: Ian Handel
 date: 2017
-output:
-  revealjs::revealjs_presentation:
-    theme: night
-    highlight: espresso
-    center: true
-    transition: fade
 ---
 
 ```{r setup, include=FALSE}
@@ -33,7 +27,7 @@ Should be...
 425ec869e2a885d2da60d6bb16902555
 
 ```{r}
-FILE <- "../data/ians-drug-trial_biochemistry-results_20171020.xls"
+FILE <- "../data/ians-drug-trial_biochemistry-results_20171020.xlsx"
 tools::md5sum(FILE)
 dat <- readxl::read_excel(FILE, sheet = 1)
 ```

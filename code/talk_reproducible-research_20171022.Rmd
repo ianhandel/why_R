@@ -2,12 +2,6 @@
 title: R and Excel
 author: Ian Handel
 date: 2017
-output:
-  revealjs::revealjs_presentation:
-    theme: night
-    highlight: espresso
-    center: true
-    transition: fade
 ---
 
 ```{r, echo = FALSE, include = FALSE}
@@ -15,22 +9,20 @@ library(knitr)
 knitr::opts_chunk$set(echo = TRUE, comment = "")
 ```
 
-
-## What am I going to talk about?
+## Reproducible research
 
 ```{r, echo = FALSE}
 include_graphics("../images/data-in-article_meme.jpg")
 ```
 
-
 ## Excel
->- Is easy
->- Is fairly quick (the first time)
->- Isn't free but it might be cheap
->- Is difficult to make 'reproducible'
+- Is easy
+- Is fairly quick (the first time)
+- Isn't free but it might be cheap
+- Is difficult to make 'reproducible'
 
 ## R
->- Isn't easy (but you can learn it)
->- Is very quick the 2nd & 3rd & 4th & 5th... times
->- Is free
->- Is easy to make 'reproducible'
+- Isn't easy (but you can learn it)
+- Is very quick the 2nd & 3rd & 4th & 5th... times
+- Is free
+- Is easy to make 'reproducible'
