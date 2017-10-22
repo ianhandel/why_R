@@ -164,6 +164,6 @@ dat %>% show_df()
 ## Save tidied and cleaned data
 
 ```{r}
-# write_csv(dat, "output/ians-drug-trial_biochemistry-result_tidy_20171020.csv")
+write_csv(dat, "../data/ians-drug-trial_biochemistry-results_20171020_tidied.csv")
 ```
 

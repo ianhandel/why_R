@@ -503,7 +503,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">FILE &lt;-<span class="st"> &quot;../data/ians-drug-trial_biochemistry-results_20171020.xlsx&quot;</span>
 tools<span class="op">::</span><span class="kw">md5sum</span>(FILE)</code></pre></div>
 <pre><code>../data/ians-drug-trial_biochemistry-results_20171020.xlsx 
-                        &quot;d31d5ea55061db421762628f6f0d0312&quot; </code></pre>
+                        &quot;4e0edf1eb30c664fdf69a73ba661c87f&quot; </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(FILE, <span class="dt">sheet =</span> <span class="dv">1</span>)</code></pre></div>
 <table>
 <thead>
@@ -6124,7 +6124,7 @@ tools<span class="op">::</span><span class="kw">md5sum</span>(FILE)</code></pre>
 </section>
 <section id="save-tidied-and-cleaned-data" class="slide level2">
 <h2>Save tidied and cleaned data</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write_csv(dat, &quot;output/ians-drug-trial_biochemistry-result_tidy_20171020.csv&quot;)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_csv</span>(dat, <span class="st">&quot;../data/ians-drug-trial_biochemistry-results_20171020_tidied.csv&quot;</span>)</code></pre></div>
 </section>
     </div>
   </div>
