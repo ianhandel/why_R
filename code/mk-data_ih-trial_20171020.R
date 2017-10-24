@@ -42,4 +42,4 @@ dat <- dat %>%
          treatment = case_when(sex == "" ~ "",
                                TRUE ~ treatment)) %>% 
 
-write_xlsx("data/ians-drug-trial_biochemistry-results_20171020.xlsx")
+write_xlsx("data/ih-trial_results_20171020.xlsx")

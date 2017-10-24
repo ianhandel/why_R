@@ -24,7 +24,7 @@ show_df <- function(df){
 ## Import data and checksum
 
 ```{r}
-DATA_FILE_NAME <- "../data/ians-drug-trial_biochemistry-results_20171020.xlsx"
+DATA_FILE_NAME <- "../data/ih-trial_results_20171020.xlsx"
 tools::md5sum(DATA_FILE_NAME)
 dat <- readxl::read_excel(DATA_FILE_NAME, sheet = 1)
 ```
@@ -162,6 +162,6 @@ dat %>% show_df()
 ## Save tidied and cleaned data
 
 ```{r}
-write_csv(dat, "../data/ians-drug-trial_biochemistry-results_20171020_tidied.csv")
+write_csv(dat, "../data/ih-trial_results_20171020_tidy.csv")
 ```
 
