@@ -1,4 +1,4 @@
-all: docs/01_import-and-tidy_ians-drug-trial_20171020.html
+all: docs/01_import-and-tidy_ians-drug-trial_20171020.html data/ians-drug-trial_biochemistry-results_20171020_tidied.csv
 
 clean:
 	rm -f output/*.* rm -f data/*.*
