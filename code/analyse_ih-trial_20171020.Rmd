@@ -42,6 +42,25 @@ dat %>%
   kable(caption = "Age")
 ```
 
+\ 
+\ 
+
+
+```{r}
+dat %>%
+  group_by(treatment) %>% 
+  summarise(male = 100 * mean(sex == "m"),
+            n = sum(sex == "m")) %>% 
+  ungroup() %>% 
+  map_if(is_bare_double, ~round(.x)) %>%
+  as_tibble() %>% 
+  mutate(male = paste0(n, " (",male, " %)")) %>%
+  dplyr::select(-n) %>% 
+  kable()
+
+
+```
+
 ## Plot individual animal results
 
 ```{r}
@@ -69,7 +88,7 @@ dat %>%
             uci = t.test(value)$conf.int[[2]]) %>% 
   ungroup() %>% 
 ggplot(aes(week, mean_value, ymin = lci, ymax = uci, colour = treatment)) +
-  geom_line(alpha = 0.5, position = position_dodge(w = 0.2)) +
+  geom_line(alpha = 0.5, position = position_dodge(w = 0.3)) +
   geom_pointrange(position = position_dodge(w = 0.2), size = 0.2) +
   facet_grid(sex2 ~ .) +
   labs(title = "Value vs time by treatment and sex",

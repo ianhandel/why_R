@@ -3,6 +3,7 @@ all: docs/tidy_ih-trial_20171020.html docs/analyse_ih-trial_20171020.html
 clean:
 	rm -f docs/*.*
 	rm -f data/*.*
+	rm -f code/*.docx
 
 docs/tidy_ih-trial_20171020.html data/ih-trial_results_20171020_tidied.csv: code/tidy_ih-trial_20171020.Rmd data/ih-trial_results_20171020.xlsx
 	Rscript -e 'rmarkdown::render("$<", revealjs::revealjs_presentation(theme = "default",transition = "fade", highlight = "zenburn"))'
