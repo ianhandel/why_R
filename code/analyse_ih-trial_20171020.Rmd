@@ -94,14 +94,6 @@ summary(mod)
 
 ----
 
-### One output format
-```{r,, results='asis'}
-stargazer::stargazer(mod, type = "html", report=('vc*p'))
-```
-
-----
-
-### Another output format
 ```{r}
-sjPlot::sjt.lmer(mod)
+sjPlot::sjt.lmer(mod, digits.std = 3)
 ```
