@@ -5,6 +5,8 @@ date: "2017"
 output:
   revealjs::revealjs_presentation:
     transition: fade
+    highlight: zenburn
+    theme: beige
 ---
 
 
@@ -89,7 +91,7 @@ dat %>%
   ungroup() %>% 
 ggplot(aes(week, mean_value, ymin = lci, ymax = uci, colour = treatment)) +
   geom_line(alpha = 0.5, position = position_dodge(w = 0.3)) +
-  geom_pointrange(position = position_dodge(w = 0.2), size = 0.2) +
+  geom_pointrange(position = position_dodge(w = 0.4), size = 0.2) +
   facet_grid(sex2 ~ .) +
   labs(title = "Value vs time by treatment and sex",
        subtitle = "Response great in A than B?",
@@ -98,17 +100,22 @@ ggplot(aes(week, mean_value, ymin = lci, ymax = uci, colour = treatment)) +
        colour = "Treatment")
 ```
 
+
 ## Statistical model
 
+<small>
 ```{r}
-
 mod <- lmer(value ~ week + sex + age + (1 | subject), data = dat)
-
 summary(mod)
 ```
+</small>
 
 ----
+### Smarter output
 
+<small>
 ```{r}
 sjPlot::sjt.lmer(mod, digits.std = 3)
 ```
+</small>
+

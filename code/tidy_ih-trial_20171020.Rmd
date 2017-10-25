@@ -3,7 +3,9 @@ title: Ian's Drug Trial - tidy
 author: Ian Handel
 date: 2017
 output:
-  revealjs::reveal_presentation
+  revealjs::revealjs_presentation:
+    transition: fade
+    highlight: zenburn
 ---
 
 

@@ -4,9 +4,10 @@ clean:
 	rm -f docs/*.*
 	rm -f data/*.*
 	rm -f code/*.docx
+	rm -f code/*.pdf
 
 docs/tidy_ih-trial_20171020.html data/ih-trial_results_20171020_tidied.csv: code/tidy_ih-trial_20171020.Rmd data/ih-trial_results_20171020.xlsx
-	Rscript -e 'rmarkdown::render("$<", revealjs::revealjs_presentation(theme = "default",transition = "fade", highlight = "zenburn"))'
+	Rscript -e 'rmarkdown::render("$<")'
 	mv code/tidy_ih-trial_20171020.html docs/
 	
 docs/analyse_ih-trial_20171020.html: code/analyse_ih-trial_20171020.Rmd data/ih-trial_results_20171020_tidy.csv
