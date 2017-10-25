@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="Ian Handel" />
   <meta name="dcterms.date" content="2017-01-01" />
-  <title>Ian’s Drug Trial Analysis</title>
+  <title>Ian’s Drug Trial - tidy</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -488,7 +488,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <div class="slides">
 
 <section>
-    <h1 class="title">Ian’s Drug Trial Analysis</h1>
+    <h1 class="title">Ian’s Drug Trial - tidy</h1>
     <h2 class="author">Ian Handel</h2>
     <h3 class="date">2017</h3>
 </section>
@@ -498,7 +498,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DATA_FILE_NAME &lt;-<span class="st"> &quot;../data/ih-trial_results_20171020.xlsx&quot;</span>
 tools<span class="op">::</span><span class="kw">md5sum</span>(DATA_FILE_NAME)</code></pre></div>
 <pre><code>../data/ih-trial_results_20171020.xlsx 
-    &quot;bc9764d5e790109faf9540039704302c&quot; </code></pre>
+    &quot;677134b798970057dac5650461f682e1&quot; </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span>readxl<span class="op">::</span><span class="kw">read_excel</span>(DATA_FILE_NAME, <span class="dt">sheet =</span> <span class="dv">1</span>)</code></pre></div>
 <table>
 <thead>

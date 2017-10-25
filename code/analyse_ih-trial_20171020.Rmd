@@ -1,0 +1,90 @@
+---
+title: "Ian's Drug Trial - analyse"
+author: "Ian Handel"
+date: "2017"
+output:
+  html_document:
+    code_folding: hide
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(stringr)
+library(forcats)
+library(knitr)
+library(kableExtra) # striping
+library(skimr)
+library(mosaic)
+
+knitr::opts_chunk$set(comment = "", message = FALSE, echo = FALSE)
+options(width = 80)
+```
+
+## Load tidied data
+
+```{r}
+dat <- read_csv("../data/ih-trial_results_20171020_tidy.csv")
+```
+
+## Initial look
+
+```{r}
+skim(dat)
+```
+
+## Characteristics of treatment groups
+```{r}
+dat %>%
+  group_by(treatment) %>% 
+  summarise(n = sum(!is.na(age)),
+            mean = mean(age),
+            median = median(age),
+            sd = sd(age),
+            min = min(age),
+            max = max(age)) %>% 
+  ungroup() %>% 
+  map_if(is_bare_double, ~round(.x, 2)) %>% 
+  as_tibble() %>% 
+  kable() %>% 
+  kable_styling()
+
+```
+
+## Plot individual animal results
+
+```{r}
+dat %>% 
+  mutate(sex2 = fct_recode(sex, Male = "m", Female = "f")) %>% 
+ggplot(aes(week, value, group = paste(subject, rep), colour = subject)) +
+  geom_line(alpha = 0.5) +
+  geom_point() +
+  facet_grid(sex2 ~ treatment) +
+  labs(title = "Value vs time by treatment and sex",
+       subtitle = "Response great in A than B?",
+       x = "Week",
+       y = "Value (mg/L)") +
+  guides(colour = FALSE)
+```
+
+## Plot summary results
+
+```{r}
+dat %>% 
+  mutate(sex2 = fct_recode(sex, Male = "m", Female = "f")) %>%
+  group_by(week, treatment, sex2) %>% 
+  summarise(mean_value = mean(value),
+            lci = t.test(value)$conf.int[[1]],
+            uci = t.test(value)$conf.int[[2]]) %>% 
+  ungroup() %>% 
+ggplot(aes(week, mean_value, ymin = lci, ymax = uci, colour = treatment)) +
+  geom_line(alpha = 0.5, position = position_dodge(w = 0.2)) +
+  geom_pointrange(position = position_dodge(w = 0.2), size = 0.2) +
+  facet_grid(sex2 ~ .) +
+  labs(title = "Value vs time by treatment and sex",
+       subtitle = "Response great in A than B?",
+       x = "Week",
+       y = "Value (mg/L)",
+       colour = "Treatment")
+```
+
