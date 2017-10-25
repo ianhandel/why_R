@@ -14,8 +14,6 @@ library(stringr)
 library(forcats)
 library(knitr)
 library(kableExtra) # striping
-library(skimr)
-library(mosaic)
 library(nlme)
 library(lme4)
 
@@ -41,9 +39,7 @@ dat %>%
   ungroup() %>% 
   map_if(is_bare_double, ~round(.x, 2)) %>% 
   as_tibble() %>% 
-  kable() %>% 
-  kable_styling()
-
+  kable(caption = "Age")
 ```
 
 ## Plot individual animal results
