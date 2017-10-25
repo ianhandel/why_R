@@ -3,8 +3,8 @@ title: "Ian's Drug Trial - analyse"
 author: "Ian Handel"
 date: "2017"
 output:
-  html_document:
-    code_folding: hide
+  revealjs::revealjs_presentation:
+    transition: fade
 ---
 
 
@@ -16,21 +16,16 @@ library(knitr)
 library(kableExtra) # striping
 library(skimr)
 library(mosaic)
+library(nlme)
+library(lme4)
 
 knitr::opts_chunk$set(comment = "", message = FALSE, echo = FALSE)
 options(width = 80)
 ```
 
-## Load tidied data
 
-```{r}
+```{r load_tidy_data}
 dat <- read_csv("../data/ih-trial_results_20171020_tidy.csv")
-```
-
-## Initial look
-
-```{r}
-skim(dat)
 ```
 
 ## Characteristics of treatment groups
@@ -88,3 +83,25 @@ ggplot(aes(week, mean_value, ymin = lci, ymax = uci, colour = treatment)) +
        colour = "Treatment")
 ```
 
+## Statistical model
+
+```{r}
+
+mod <- lmer(value ~ week + sex + age + (1 | subject), data = dat)
+
+summary(mod)
+```
+
+----
+
+### One output format
+```{r,, results='asis'}
+stargazer::stargazer(mod, type = "html", report=('vc*p'))
+```
+
+----
+
+### Another output format
+```{r}
+sjPlot::sjt.lmer(mod)
+```
