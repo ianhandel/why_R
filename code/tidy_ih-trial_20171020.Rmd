@@ -6,7 +6,14 @@ output:
   revealjs::revealjs_presentation:
     transition: fade
     highlight: zenburn
+    theme: simple
 ---
+
+.reveal section img { 
+  background:none; 
+  border:none; 
+  box-shadow:none; 
+  }
 
 
 ```{r setup, include=FALSE}
@@ -33,10 +40,12 @@ tools::md5sum(DATA_FILE_NAME)
 dat <- readxl::read_excel(DATA_FILE_NAME, sheet = 1)
 ```
   
-  
+
 ```{r, results='asis', echo=FALSE}
 dat %>% show_df()
 ```
+
+---
 ## Fill down the missing columns
 
 ```{r}
@@ -46,6 +55,9 @@ dat <- dat %>%
 ```{r, results='asis', echo=FALSE}
 dat %>% show_df()
 ```
+
+---
+
 ## Make the subject ID nice
 
 ```{r}
@@ -56,10 +68,15 @@ dat <- dat %>%
 ```{r, results='asis', echo=FALSE}
 dat %>% show_df()
 ```
+
+---
 ## Clean the sex/status column
 
 ```{r}
-kable(dat %>% group_by(sex) %>% tally())
+dat %>%
+  group_by(sex) %>%
+  tally() %>% 
+  kable(format = "html")
 ```
 
 ---
@@ -76,6 +93,7 @@ dat <- dat %>%
 dat %>% show_df()
 ```
 
+---
 ## Separate sex/status into 2 columns
 
 ```{r}
@@ -87,6 +105,7 @@ dat <- dat %>%
 dat %>% show_df()
 ```
 
+---
 ## Make ages in months into years
 
 ```{r, size=0.1}
@@ -99,6 +118,8 @@ dat <- dat %>%
 ```{r, results='asis', echo=FALSE}
 dat %>% show_df()
 ```
+
+---
 ## Gather results and create week column
 
 ```{r}
@@ -111,7 +132,8 @@ dat <- dat %>%
 dat %>% show_df()
 ```
 
-## Check result values for obvious typos and correct
+---
+## Check result values for obvious typos
 
 ```{r, fig.height=3}
 ggplot(dat, aes(x = value)) +
@@ -127,7 +149,7 @@ ggplot(dat, aes(x = value)) +
 dat %>% 
   dplyr::filter(value > 50) %>% 
   dplyr::select(subject, week, rep, value) %>% 
-  kable()
+  kable(format = "html")
 ```
 ---
 
@@ -163,8 +185,10 @@ dat <- dat %>%
 dat %>% show_df()
 ```
 
-## Save tidied and cleaned data
 
+---
+
+## Save tidied and cleaned data
 ```{r}
 write_csv(dat, "../data/ih-trial_results_20171020_tidy.csv")
 ```

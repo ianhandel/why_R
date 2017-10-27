@@ -3,6 +3,7 @@ all: docs/tidy_ih-trial_20171020.html docs/analyse_ih-trial_20171020.html
 clean:
 	rm -f docs/*.*
 	rm -f data/*.*
+	rm -f code/*.html
 	rm -f code/*.docx
 	rm -f code/*.pdf
 
