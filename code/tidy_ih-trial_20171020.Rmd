@@ -9,12 +9,6 @@ output:
     theme: simple
 ---
 
-.reveal section img { 
-  background:none; 
-  border:none; 
-  box-shadow:none; 
-  }
-
 
 ```{r setup, include=FALSE}
 library(tidyverse)
