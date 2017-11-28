@@ -2,11 +2,7 @@
 title: "Ian's Drug Trial - analyse"
 author: "Ian Handel"
 date: "2017"
-output:
-  revealjs::revealjs_presentation:
-    transition: fade
-    highlight: zenburn
-    theme: simple
+output: html_document
 ---
 
 

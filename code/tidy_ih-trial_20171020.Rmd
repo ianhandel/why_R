@@ -5,6 +5,18 @@ date: 2017
 output: html_document
 ---
 
+<<<<<<< HEAD
+||||||| merged common ancestors
+.reveal section img { 
+  background:none; 
+  border:none; 
+  box-shadow:none; 
+  }
+
+
+=======
+
+>>>>>>> d061d5ec78aef747211e78af042317f94264aeff
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(stringr)
