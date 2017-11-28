@@ -5,18 +5,9 @@ date: 2017
 output: html_document
 ---
 
-<<<<<<< HEAD
-||||||| merged common ancestors
-.reveal section img { 
-  background:none; 
-  border:none; 
-  box-shadow:none; 
-  }
 
 
-=======
 
->>>>>>> d061d5ec78aef747211e78af042317f94264aeff
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(stringr)
@@ -66,9 +57,7 @@ dat <- dat %>%
   tidyr::separate(sex, c("sex", "neuter_status"), 1)
 ```
 
-```{r, results='asis', echo=FALSE}
-dat %>% show_df()
-```
+
 
 ## Make ages in months into years
 ```{r, size=0.1}
@@ -85,9 +74,7 @@ dat <- dat %>%
   mutate(week = parse_number(week))
 ```
 
-```{r, results='asis', echo=FALSE}
-dat %>% show_df()
-```
+
 
 ## Check result values for obvious typos
 
