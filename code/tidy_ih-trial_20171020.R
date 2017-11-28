@@ -8,7 +8,7 @@ library(kableExtra) # striping
 knitr::opts_chunk$set(echo = TRUE, comment = "")
 
 ## ------------------------------------------------------------------------
-dat <- read_excel("../data/ih-trial_results_20171020.xlsx", sheet = 1)
+dat <- read_excel("data/ih-trial_results_20171020.xlsx", sheet = 1)
 
 ## ------------------------------------------------------------------------
 dat <- dat %>% 
@@ -35,8 +35,6 @@ dat <- dat %>%
 dat <- dat %>% 
   tidyr::separate(sex, c("sex", "neuter_status"), 1)
 
-## ---- results='asis', echo=FALSE-----------------------------------------
-dat %>% show_df()
 
 ## ---- size=0.1-----------------------------------------------------------
 dat <- dat %>%
@@ -49,8 +47,6 @@ dat <- dat %>%
   tidyr::gather("week", "value", `week 1`:`week 4`) %>% 
   mutate(week = parse_number(week))
 
-## ---- results='asis', echo=FALSE-----------------------------------------
-dat %>% show_df()
 
 ## ---- fig.height=3-------------------------------------------------------
 ggplot(dat, aes(x = value)) +
@@ -92,5 +88,5 @@ dat <- dat %>%
   
 
 ## ------------------------------------------------------------------------
-write_csv(dat, "../data/ih-trial_results_20171020_tidy.csv")
+write_csv(dat, "data/ih-trial_results_20171020_tidy.csv")
 
