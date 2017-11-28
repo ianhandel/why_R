@@ -2,38 +2,21 @@
 library(tidyverse)
 library(stringr)
 library(forcats)
+library(readxl)
 library(knitr)
 library(kableExtra) # striping
-
 knitr::opts_chunk$set(echo = TRUE, comment = "")
 
-show_df <- function(df){
-  modify_if(df, .p = is_character, ~ replace(.x, is.na(.x), "")) %>%
-  kable(format = "markdown") %>% 
-  print()
-}
-
 ## ------------------------------------------------------------------------
-DATA_FILE_NAME <- "../data/ih-trial_results_20171020.xlsx"
-tools::md5sum(DATA_FILE_NAME)
-dat <- readxl::read_excel(DATA_FILE_NAME, sheet = 1)
-
-## ---- results='asis', echo=FALSE-----------------------------------------
-dat %>% show_df()
+dat <- read_excel("../data/ih-trial_results_20171020.xlsx", sheet = 1)
 
 ## ------------------------------------------------------------------------
 dat <- dat %>% 
   fill(sex, age, treatment)
 
-## ---- results='asis', echo=FALSE-----------------------------------------
-dat %>% show_df()
-
 ## ------------------------------------------------------------------------
 dat <- dat %>% 
   mutate(subject = paste0("A", str_pad(subject, 3, "left", "0")))
-
-## ---- results='asis', echo=FALSE-----------------------------------------
-dat %>% show_df()
 
 ## ------------------------------------------------------------------------
 dat %>%
@@ -48,9 +31,6 @@ dat <- dat %>%
                          sex == "MN" ~ "mn",
                          TRUE ~ sex))
 
-## ---- results='asis', echo=FALSE-----------------------------------------
-dat %>% show_df()
-
 ## ------------------------------------------------------------------------
 dat <- dat %>% 
   tidyr::separate(sex, c("sex", "neuter_status"), 1)
@@ -63,9 +43,6 @@ dat <- dat %>%
   mutate(age = case_when(
                     str_detect(age, "month") ~ parse_number(age) / 12,
                     TRUE ~ parse_number(age)))
-
-## ---- results='asis', echo=FALSE-----------------------------------------
-dat %>% show_df()
 
 ## ------------------------------------------------------------------------
 dat <- dat %>%
@@ -113,9 +90,6 @@ dat <- dat %>%
                            
                            TRUE ~               value))
   
-
-## ---- results='asis', echo=FALSE-----------------------------------------
-dat %>% show_df()
 
 ## ------------------------------------------------------------------------
 write_csv(dat, "../data/ih-trial_results_20171020_tidy.csv")
