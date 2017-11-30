@@ -1,4 +1,4 @@
-all: docs/tidy_ih-trial_20171020.html docs/analyse_ih-trial_20171020.html
+all: docs/tidy_ih-trial_20171020.html docs/analyse_ih-trial_20171020.html code/tidy_ih-trial_20171020.R
 
 clean:
 	rm -f docs/*.*
@@ -22,4 +22,6 @@ docs/analyse_ih-trial_20171020.html: code/analyse_ih-trial_20171020.html
 data/ih-trial_results_20171020.xlsx: code/mk-data_ih-trial_20171020.R
 	Rscript -e 'source("$<")'
 
+code/tidy_ih-trial_20171020.R: code/tidy_ih-trial_20171020.Rmd
+	Rscript -e 'knitr::purl("$<", output = "$@")'
 
