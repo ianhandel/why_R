@@ -17,7 +17,7 @@ dat <- tibble(subject = 1:N,
               dummy= 1) %>% 
   inner_join(expand.grid(week = 1:n_weeks, rep = 1:n_reps) %>% mutate(dummy = 1)) %>% 
   dplyr::select(- dummy) %>% 
-  mutate(value = sqrt(week * 2) + grepl("n", sex) + (treatment == "B") * 3 + rnorm(N * n_reps * n_weeks, rep , 2),
+  mutate(value = week * 2.7 + grepl("n", sex) + (treatment == "B") * 3 + rnorm(N * n_reps * n_weeks, rep , 2),
          value = round(value, 2),
          row = 1:n()) %>% 
   mutate(value = case_when(row %in% c(sample(1:n(), n_silly)) ~ value * 100,

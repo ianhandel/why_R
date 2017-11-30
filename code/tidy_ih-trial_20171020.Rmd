@@ -61,6 +61,14 @@ dat <- dat %>%
   separate(sex, c("sex", "neuter_status"), 1)
 ```
 
+## Expand sex and status codes
+```{r}
+dat <- dat %>% 
+  mutate(sex = fct_recode(sex, male = "m", female = "f"),
+         neuter_status = fct_recode(neuter_status, neutered = "n", entire = "e"))
+
+```
+
 
 
 ## Make ages in months into years
@@ -105,23 +113,23 @@ dat %>%
 dat <- dat %>%
   mutate(value = case_when(subject == "A006" &
                              week == 1 &
-                             rep == 2 ~         6.04,
+                             rep == 2 ~         7.32,
                            
                            subject == "A012" &
                              week == 2 &
-                             rep == 2 ~         7.76,
+                             rep == 2 ~         11.16,
                            
                            subject == "A012" &
                              week == 3 &
-                             rep == 1 ~         7.23,
+                             rep == 1 ~         12.88,
                            
                            subject == "A003" &
                              week == 4 &
-                             rep == 2 ~         4.08,
+                             rep == 2 ~         12.05,
                            
                            subject == "A004" &
                              week == 4 &
-                             rep == 1 ~         7.37,
+                             rep == 1 ~         15.34,
                            
                            TRUE ~               value))
   

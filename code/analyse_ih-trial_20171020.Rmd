@@ -47,8 +47,8 @@ dat %>%
 ```{r}
 dat %>%
   group_by(treatment) %>% 
-  summarise(male = 100 * mean(sex == "m"),
-            n = sum(sex == "m")) %>% 
+  summarise(male = 100 * mean(sex == "male"),
+            n = sum(sex == "male")) %>% 
   ungroup() %>% 
   map_if(is_bare_double, ~round(.x)) %>%
   as_tibble() %>% 
@@ -62,12 +62,11 @@ dat %>%
 ## Plot individual animal results
 
 ```{r}
-dat %>% 
-  mutate(sex2 = fct_recode(sex, Male = "m", Female = "f")) %>% 
-ggplot(aes(week, value, group = paste(subject, rep), colour = subject)) +
-  geom_line(alpha = 0.5) +
+ggplot(dat) +
+  aes(week, value, group = paste(subject, rep), colour = treatment) +
   geom_point() +
-  facet_grid(sex2 ~ treatment) +
+  geom_line(alpha = 0.5) +
+  facet_grid(sex ~ treatment) +
   labs(title = "Value vs time by treatment and sex",
        subtitle = "Response great in A than B?",
        x = "Week",
@@ -77,24 +76,7 @@ ggplot(aes(week, value, group = paste(subject, rep), colour = subject)) +
 
 ## Plot summary results
 
-```{r}
-dat %>% 
-  mutate(sex2 = fct_recode(sex, Male = "m", Female = "f")) %>%
-  group_by(week, treatment, sex2) %>% 
-  summarise(mean_value = mean(value),
-            lci = t.test(value)$conf.int[[1]],
-            uci = t.test(value)$conf.int[[2]]) %>% 
-  ungroup() %>% 
-ggplot(aes(week, mean_value, ymin = lci, ymax = uci, colour = treatment)) +
-  geom_line(alpha = 0.5, position = position_dodge(w = 0.3)) +
-  geom_pointrange(position = position_dodge(w = 0.4), size = 0.2) +
-  facet_grid(sex2 ~ .) +
-  labs(title = "Value vs time by treatment and sex",
-       subtitle = "Response great in A than B?",
-       x = "Week",
-       y = "Value (mg/L)",
-       colour = "Treatment")
-```
+
 
 
 ## Statistical model
