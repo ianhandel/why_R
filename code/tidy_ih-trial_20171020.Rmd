@@ -2,7 +2,9 @@
 title: Ian's Drug Trial - tidy
 author: Ian Handel
 date: 2017
-output: html_document
+output: 
+  ioslides_presentation: 
+    highlight: zenburn
 ---
 
 
@@ -19,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE, comment = "")
 ```
 
 ## Import data and checksum
-```{r}
+```{r, warning=FALSE}
 dat <- read_excel("../data/ih-trial_results_20171020.xlsx", sheet = 1)
 ```
   
@@ -32,7 +34,7 @@ dat <- dat %>%
 ## Make the subject ID nice
 ```{r}
 dat <- dat %>% 
-  mutate(subject = paste0("A", str_pad(subject, 3, "left", "0")))
+  mutate(subject = str_c("A", str_pad(subject, 3, "left", "0")))
 ```
 
 ## Clean the sex/status column
@@ -43,6 +45,8 @@ dat %>%
   kable(format = "html")
 ```
 
+
+## Clean sex/status entries
 ```{r}
 dat <- dat %>%
   mutate(sex = case_when(sex == "female nneutered" ~ "fn",
@@ -54,7 +58,7 @@ dat <- dat %>%
 ## Separate sex/status into 2 columns
 ```{r}
 dat <- dat %>% 
-  tidyr::separate(sex, c("sex", "neuter_status"), 1)
+  separate(sex, c("sex", "neuter_status"), 1)
 ```
 
 
@@ -70,7 +74,7 @@ dat <- dat %>%
 ## Gather results and create week column
 ```{r}
 dat <- dat %>%
-  tidyr::gather("week", "value", `week 1`:`week 4`) %>% 
+  gather("week", "value", `week 1`:`week 4`) %>% 
   mutate(week = parse_number(week))
 ```
 
@@ -81,17 +85,20 @@ dat <- dat %>%
 ```{r, fig.height=3}
 ggplot(dat, aes(x = value)) +
   geom_histogram(binwidth = 5) +
-  coord_cartesian(ylim = c(0, 10)) + 
-  labs(title = "Quick histogram of all values",
-       subtitle = "NB: y axis truncated")
+  coord_cartesian(ylim = c(0, 10))
 ```
+
+## Tabulate large values
 
 ```{r}
 dat %>% 
-  dplyr::filter(value > 50) %>% 
-  dplyr::select(subject, week, rep, value) %>% 
+  filter(value > 50) %>% 
+  select(subject, week, rep, value) %>% 
   kable(format = "html")
 ```
+
+
+## Correct values from paper records
 
 ```{r}
 
