@@ -21,7 +21,9 @@ dat <- tibble(subject = 1:N,
          value = round(value, 2),
          row = 1:n()) %>% 
   mutate(value = case_when(row %in% c(sample(1:n(), n_silly)) ~ value * 100,
-                           TRUE ~ value))
+                           TRUE ~ value),
+         value = case_when(value < 0 ~ 0,
+                           TRUE ~ value)) 
 
   
   
