@@ -1,30 +1,48 @@
 ---
 title: "Ian's Drug Trial - Analysis"
 author: "Ian Handel"
-date: "2017"
-output: html_document
+date: '2017'
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
 ---
 
 
-```{r setup, include=FALSE}
+```{r setup2, include=FALSE}
 library(tidyverse)
-library(stringr)
-library(forcats)
 library(knitr)
 library(kableExtra) 
-library(nlme)
 library(lme4)
 
-knitr::opts_chunk$set(comment = "", message = FALSE, echo = FALSE)
+knitr::opts_chunk$set(comment = "", message = FALSE)
 options(width = 80)
 ```
 
+## Data cleaning
+
+```{r child="tidy_ih-trial_script_20171020.Rmd"}
+```
+
+
+## Introduction 
+Here we can write some words about the background...
+
+## Methods
+
+```{r}
+include_graphics("../images/why-R_presentation_20171130_design/why-R_presentation_20171130_design.001.png")
+```
+
+Here I can talk about this figure in an aimless fashion...
+
+## Results
 
 ```{r load_tidy_data}
 dat <- read_csv("../data/ih-trial_results_20171020_tidy.csv")
 ```
 
-## Characteristics of treatment groups
+### Characteristics of treatment groups
 ```{r}
 dat %>%
   group_by(treatment) %>% 
@@ -38,7 +56,6 @@ dat %>%
   map_if(is_bare_double, ~round(.x, 2)) %>% 
   as_tibble() %>% 
   kable(caption = "Age by treatment group",
-        format = "html",
         table.attr = "style='width:30%;'") %>% 
   kable_styling(bootstrap_options = "bordered", full_width = FALSE)
 ```
@@ -56,7 +73,6 @@ dat %>%
   mutate(male = paste0(n, " (",male, " %)")) %>%
   dplyr::select(-n) %>% 
   kable(caption = "Sex by treatment group",
-        format = "html",
         table.attr = "style='width:30%;'") %>% 
   kable_styling(bootstrap_options = "bordered", full_width = FALSE)
 
@@ -66,9 +82,10 @@ dat %>%
 
 
 
-## Plot individual animal results
+### Plot individual animal results
 
 ```{r}
+
 ggplot(dat) +
   aes(week, glucose, group = paste(subject, rep), colour = treatment) +
   geom_point() +
@@ -77,19 +94,20 @@ ggplot(dat) +
   labs(title = "Value vs time by treatment and sex",
        subtitle = "Response greater in A than B?",
        x = "Week",
-       y = "glucose (mg/L)") +
-  guides(colour = FALSE) +
-  theme_bw()
+       y = "glucose (mg/L)")
+
+
 ```
 
 
-## Statistical model
+### Statistical model
 
-<small>
 ```{r, message=FALSE, warning=FALSE}
 mod <- lmer(glucose ~ treatment * week + age + sex + (1 | subject), data = dat)
-sjPlot::sjt.lmer(mod, digits.std = 3)
+sjPlot::sjt.lmer(mod, digits.std = 3)$data %>% 
+  as_tibble() %>%
+  select(coef.name:std.se1) %>% 
+  kable(type = "text")
 ```
-</small>
 
 
