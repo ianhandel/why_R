@@ -3,11 +3,11 @@ title: "Ian's Drug Trial"
 author: "Ian Handel"
 date: '2017-12-03'
 output:
-  word_document: 
-    highlight: tango
   html_document:
     code_folding: hide
     highlight: haddock
+  word_document: 
+    highlight: tango
 ---
 
 
@@ -17,7 +17,7 @@ library(knitr)
 library(kableExtra) 
 library(lme4)
 
-knitr::opts_chunk$set(comment = "", message = FALSE)
+knitr::opts_chunk$set(comment = "", message = FALSE, echo = TRUE)
 options(width = 80)
 ```
 
@@ -36,7 +36,7 @@ Here we can write some words about the background...
 include_graphics("../images/why-R_presentation_20171130_design/why-R_presentation_20171130_design.001.png")
 ```
 
-Here I can talk about this figure in an aimless fashion...
+Here I can write some more words about these hypoglycaemic aliens...
 
 ## Results
 
