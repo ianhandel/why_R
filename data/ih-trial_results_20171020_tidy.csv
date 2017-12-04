@@ -1,4 +1,4 @@
-subject,sex,neuter_status,age,treatment,rep,week,value
+subject,sex,neuter_status,age,treatment,rep,week,glucose
 A001,female,neutered,0.5,A,1,1,0
 A001,female,neutered,0.5,A,2,1,2.55
 A001,female,neutered,0.5,A,3,1,2.63

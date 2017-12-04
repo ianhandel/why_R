@@ -3,8 +3,8 @@ title: Ian's Drug Trial - tidy
 author: Ian Handel
 date: 2017
 output: 
-  ioslides_presentation: 
-    highlight: zenburn
+  html_document: 
+    highlight: haddock
 ---
 
 
@@ -22,7 +22,8 @@ knitr::opts_chunk$set(echo = TRUE, comment = "")
 
 ## Import data and checksum
 ```{r, warning=FALSE}
-dat <- read_excel("../data/ih-trial_results_20171020.xlsx", sheet = 1)
+dat <- read_excel("../data/ih-trial_results_20171020.xlsx",
+                  sheet = 1)
 ```
   
 ## Fill down the missing columns
@@ -64,8 +65,12 @@ dat <- dat %>%
 ## Expand sex and status codes
 ```{r}
 dat <- dat %>% 
-  mutate(sex = fct_recode(sex, male = "m", female = "f"),
-         neuter_status = fct_recode(neuter_status, neutered = "n", entire = "e"))
+  mutate(sex = fct_recode(sex,
+                            male = "m",
+                            female = "f"),
+         neuter_status = fct_recode(neuter_status,
+                                      neutered = "n",
+                                      entire = "e"))
 
 ```
 
@@ -82,7 +87,7 @@ dat <- dat %>%
 ## Gather results and create week column
 ```{r}
 dat <- dat %>%
-  gather("week", "value", `week 1`:`week 4`) %>% 
+  gather("week", "glucose", `week 1`:`week 4`) %>% 
   mutate(week = parse_number(week))
 ```
 
@@ -91,7 +96,7 @@ dat <- dat %>%
 ## Check result values for obvious typos
 
 ```{r, fig.height=3}
-ggplot(dat, aes(x = value)) +
+ggplot(dat, aes(x = glucose)) +
   geom_histogram(binwidth = 5) +
   coord_cartesian(ylim = c(0, 10))
 ```
@@ -100,8 +105,8 @@ ggplot(dat, aes(x = value)) +
 
 ```{r}
 dat %>% 
-  filter(value > 50) %>% 
-  select(subject, week, rep, value) %>% 
+  filter(glucose > 50) %>% 
+  select(subject, week, rep, glucose) %>% 
   kable(format = "html")
 ```
 
@@ -111,7 +116,7 @@ dat %>%
 ```{r}
 
 dat <- dat %>%
-  mutate(value = case_when(subject == "A006" &
+  mutate(glucose = case_when(subject == "A006" &
                              week == 1 &
                              rep == 2 ~         1.62,
                            
@@ -131,7 +136,7 @@ dat <- dat %>%
                              week == 4 &
                              rep == 1 ~         16.54,
                            
-                           TRUE ~               value))
+                           TRUE ~               glucose))
   
 ```
 
