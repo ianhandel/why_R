@@ -1,8 +1,10 @@
 ---
-title: "Ian's Drug Trial - Analysis"
+title: "Ian's Drug Trial"
 author: "Ian Handel"
-date: '2017'
+date: '2017-12-03'
 output:
+  word_document: 
+    highlight: tango
   html_document:
     code_folding: hide
     highlight: haddock
@@ -45,6 +47,8 @@ dat <- read_csv("../data/ih-trial_results_20171020_tidy.csv")
 ### Characteristics of treatment groups
 ```{r}
 dat %>%
+  select(subject, treatment, age) %>%
+  distinct() %>%
   group_by(treatment) %>% 
   summarise(n = sum(!is.na(age)),
             mean = mean(age),
@@ -63,23 +67,19 @@ dat %>%
 
 
 ```{r}
-dat %>%
+dat_sex <- dat %>%
+  select(subject, sex, treatment) %>% 
+  distinct() %>% 
   group_by(treatment) %>% 
   summarise(male = 100 * mean(sex == "male"),
-            n = sum(sex == "male")) %>% 
+            n = sum(sex == "male"),
+            N = sum(!is.na(sex))) %>% 
   ungroup() %>% 
-  map_if(is_bare_double, ~round(.x)) %>%
-  as_tibble() %>% 
-  mutate(male = paste0(n, " (",male, " %)")) %>%
-  dplyr::select(-n) %>% 
-  kable(caption = "Sex by treatment group",
-        table.attr = "style='width:30%;'") %>% 
-  kable_styling(bootstrap_options = "bordered", full_width = FALSE)
-
-
-
+  map_if(is_bare_double, ~round(.x)) %>% 
+  as_tibble()
 ```
 
+In the study `r filter(dat_sex, treatment == "A")$n` male aliens received treatment __A__ and `r filter(dat_sex, treatment == "B")$n` male aliens received treatment __B__. The experiment ran for `r max(dat$week)` weeks and each week the experiment was repeated `r max(dat$rep)` times. There were `r sum(is.na(dat$glucose))` missing glucose measurements. _The results in this paragraph are generated from the data set - so numbers will update with new data_.
 
 
 ### Plot individual animal results
@@ -89,8 +89,16 @@ dat %>%
 ggplot(dat) +
   aes(week, glucose, group = paste(subject, rep), colour = treatment) +
   geom_point() +
-  geom_line(alpha = 0.5) +
+  geom_line(alpha = 0.25) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "pointrange",
+               size = 0.5,
+               fatten = 0.2,
+               colour = "black",
+               group = 1) +
   facet_grid(sex ~ treatment) +
+  theme_bw() +
+  guides(colour = FALSE) +
   labs(title = "Value vs time by treatment and sex",
        subtitle = "Response greater in A than B?",
        x = "Week",
