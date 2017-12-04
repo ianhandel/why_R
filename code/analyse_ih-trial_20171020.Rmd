@@ -43,8 +43,6 @@ dat %>%
   kable_styling(bootstrap_options = "bordered", full_width = FALSE)
 ```
 
-\ 
-\ 
 
 
 ```{r}
@@ -66,6 +64,8 @@ dat %>%
 
 ```
 
+
+
 ## Plot individual animal results
 
 ```{r}
@@ -78,7 +78,8 @@ ggplot(dat) +
        subtitle = "Response greater in A than B?",
        x = "Week",
        y = "glucose (mg/L)") +
-  guides(colour = FALSE)
+  guides(colour = FALSE) +
+  theme_bw()
 ```
 
 
@@ -86,7 +87,7 @@ ggplot(dat) +
 
 <small>
 ```{r, message=FALSE, warning=FALSE}
-mod <- lmer(glucose ~ week * age + sex + (1 | subject), data = dat)
+mod <- lmer(glucose ~ treatment * week + age + sex + (1 | subject), data = dat)
 sjPlot::sjt.lmer(mod, digits.std = 3)
 ```
 </small>

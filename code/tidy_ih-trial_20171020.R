@@ -19,7 +19,7 @@ dat <- read_excel("data/ih-trial_results_20171020.xlsx",
                          sex == "male entire" ~ "me",
                          sex == "MN" ~ "mn",
                          TRUE ~ sex)) %>% 
-  separate(sex, c("sex", "neuter_status"), 1) %>% 
+  separate(sex, c("sex", "neuter_status"),sep = 1) %>% 
   mutate(sex = fct_recode(sex,
                             male = "m",
                             female = "f"),
