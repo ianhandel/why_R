@@ -42,6 +42,19 @@ dat <- dat %>%
   mutate(age = case_when(sex == "" ~ "",
                          TRUE ~ age),
          treatment = case_when(sex == "" ~ "",
-                               TRUE ~ treatment)) %>% 
+                               TRUE ~ treatment)) 
 
-write_xlsx("data/ih-trial_results_20171020.xlsx")
+write_xlsx(dat, "data/ih-trial_results_20171020.xlsx")
+
+dat2 <- dat %>% 
+  mutate(`week 1` = case_when(subject == "1" &
+                                        rep == 1 ~         0.52,
+                                      
+                                      subject == "1" &
+                                        rep == 2 ~         2.76,
+                                      
+                                      TRUE ~               `week 1`))
+
+write_xlsx(dat2, "data/ih-trial_results_20171203.xlsx")
+
+

@@ -19,7 +19,7 @@ code/analyse_ih-trial_20171020.html: code/analyse_ih-trial_20171020.Rmd data/ih-
 docs/analyse_ih-trial_20171020.html: code/analyse_ih-trial_20171020.html
 	cp -f code/analyse_ih-trial_20171020.html docs/
 
-data/ih-trial_results_20171020.xlsx: code/mk-data_ih-trial_20171020.R
+data/ih-trial_results_20171020.xlsx data/ih-trial_results_20171203.xlsx: code/mk-data_ih-trial_20171020.R
 	Rscript -e 'source("$<")'
 
 code/tidy_ih-trial_20171020.R: code/tidy_ih-trial_20171020.Rmd
