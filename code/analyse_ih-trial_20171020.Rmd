@@ -17,7 +17,10 @@ library(knitr)
 library(kableExtra) 
 library(lme4)
 
-knitr::opts_chunk$set(comment = "", message = FALSE, echo = TRUE)
+knitr::opts_chunk$set(comment = "",
+                      message = FALSE,
+                      echo = TRUE,
+                      warning = FALSE)
 options(width = 80)
 ```
 
