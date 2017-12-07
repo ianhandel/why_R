@@ -10,6 +10,7 @@ output:
     highlight: tango
 ---
 
+Run on `r date()`
 
 ```{r setup2, include=FALSE}
 library(tidyverse)
@@ -26,6 +27,10 @@ options(width = 80)
 
 ## Data cleaning
 
+The anaysis script calls the data cleaning script here.
+
+The data cleaning script reads data from Excel, cleans and tidies then writes out a csv file.
+
 ```{r child="tidy_ih-trial_script_20171020.Rmd"}
 ```
 
@@ -33,13 +38,27 @@ options(width = 80)
 ## Introduction 
 Here we can write some words about the background...
 
+This is an experiment to look at the effect of treatments A & B on blood glucose levels in aliens over time...
+
 ## Methods
 
-```{r}
+Here's an image to describe the experiment (from a file in this project)...
+
+```{r, fig.height=3, fig.width=5}
 include_graphics("../images/why-R_presentation_20171130_design/why-R_presentation_20171130_design.001.png")
 ```
 
 Here I can write some more words about these hypoglycaemic aliens...
+
+I can say how we recruited them.
+
+I can list exclusion criteria.
+
+We measured the blood gluocse with a special machine.
+
+We used Excel to store the data and R to run the analysis.
+
+We fitted a mixed effects model to deal with the repeated measures (but remember this is an R rather than stats example!)
 
 ## Results
 
